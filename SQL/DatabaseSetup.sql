@@ -1,0 +1,34 @@
+-- DROP DATABASE
+DROP DATABASE IF EXISTS DegreeJobTracker;
+
+-- CREATE DATABASE
+CREATE DATABASE DegreeJobTracker;
+
+-- USING DATABASE
+USE DegreeJobTracker;
+
+-- DROP all TABLES
+DROP TABLE IF EXISTS [user];
+DROP TABLE IF EXISTS degree_job;
+DROP TABLE IF EXISTS degree;
+DROP TABLE IF EXISTS job;
+DROP TABLE IF EXISTS person;
+
+-- USER TABLE
+
+-- PERSON TABLE
+CREATE TABlE person (
+	person_id INT NOT NULL IDENTITY,
+	first_name VARCHAR(35) NOT NUlL, 
+	last_name VARCHAR(35) NOT NULL,
+	email VARCHAR(70),
+	phone (VARCHAR(15),
+	CONSTRAINT pk_person
+		PRIMARY KEY (person_id)
+);
+	
+-- DEGREE TABLE
+
+-- JOB TABLE
+
+-- DEGREE_JOB TABLE
