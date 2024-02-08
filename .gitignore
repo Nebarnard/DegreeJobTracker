@@ -1,0 +1,6 @@
+# Executable Files #
+/DegreeJobTracker/bin
+/DegreeJobTracker/obj
+
+# .vs folder #
+/.vs
