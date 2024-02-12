@@ -29,7 +29,7 @@ CREATE TABlE person (
 );
 	
 -- DEGREE TABLE
-CREATE TABLE DEGREE (
+CREATE TABLE degree (
 	degree_id IDENTITY INT NOT NULL UNIQUE,
 	[type] VARCHAR(20) NOT NULL, 
 	program VARCHAR(50), 
@@ -40,6 +40,7 @@ CREATE TABLE DEGREE (
 	CONSTRAINT pk_degree
 		PRIMARY KEY (degree_id)
 );
+
 -- JOB TABLE
 
 -- DEGREE_JOB TABLE
