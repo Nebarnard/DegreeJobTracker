@@ -15,7 +15,13 @@ DROP TABLE IF EXISTS degree;
 DROP TABLE IF EXISTS job;
 DROP TABLE IF EXISTS person;
 
--- USER TABLE
+-- USER_CREDENTIALS TABLE
+CREATE TABLE user_credential (
+	username VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(64) NOT NULL,
+	CONSTANT pk_user_credential
+		PRIMARY KEY pk_user_credential
+);
 
 -- PERSON TABLE
 CREATE TABlE person (
