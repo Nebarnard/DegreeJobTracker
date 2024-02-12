@@ -19,37 +19,37 @@ DROP TABLE IF EXISTS person;
 CREATE TABLE user_credential (
 	username VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(64) NOT NULL,
-	CONSTANT pk_user_credential
-		PRIMARY KEY pk_user_credential
+	CONSTRAINT pk_user_credential
+		PRIMARY KEY (username)
 );
 
 -- PERSON TABLE
 CREATE TABlE person (
-	person_id IDENTITY INT NOT NULL UNIQUE,
+	person_id INT IDENTITY NOT NULL UNIQUE,
 	first_name VARCHAR(35) NOT NUlL, 
 	last_name VARCHAR(35) NOT NULL,
 	email VARCHAR(70),
-	phone (VARCHAR(15),
+	phone VARCHAR(15),
 	CONSTRAINT pk_person
 		PRIMARY KEY (person_id)
 );
 	
 -- DEGREE TABLE
 CREATE TABLE degree (
-	degree_id IDENTITY INT NOT NULL UNIQUE,
+	degree_id INT IDENTITY NOT NULL UNIQUE,
 	[type] VARCHAR(20) NOT NULL, 
 	program VARCHAR(50), 
-	major VARCHAR(50,
+	major VARCHAR(50),
 	concentration VARCHAR(50),
 	year_awarded SMALLINT,
-	person_id NOT NULL,
+	person_id INT NOT NULL,
 	CONSTRAINT pk_degree
 		PRIMARY KEY (degree_id)
 );
 
 -- JOB TABLE
-CREATE TABLE job {
-	job_id IDENTITY INT NOT NULL UNIQUE,
+CREATE TABLE job (
+	job_id INT IDENTITY NOT NULL UNIQUE,
 	person_id INT NOT NULL, 
 	job_title VARCHAR(50) NOT NULL,
 	business_name VARCHAR(50),
@@ -62,10 +62,10 @@ CREATE TABLE job {
 -- DEGREE_JOB TABLE
 CREATE TABLE degree_job (
 	person_id INT NOT NULL,
-	job_title VARCHAR(50) NOT NULL,
+	job_id INT NOT NULL,
 	degree_id INT NOT NULL,
 	CONSTRAINT pk_degree_job
-		PRIMARY KEY (person_id, job_title, degree_id)
+		PRIMARY KEY (person_id, job_id, degree_id)
 );
 
 -- FOREIGN KEY CONSTRAINTS
@@ -78,25 +78,27 @@ ALTER TABLE degree
 
 --Job person_id
 ALTER TABLE job
-	ADD CONSTANT fk_job_person
+	ADD CONSTRAINT fk_job_person
 	FOREIGN KEY (person_id)
 	REFERENCES person(person_id)
 ;
 
 --Degree_Job job_id
 ALTER TABLE degree_job
-	ADD CONSTANT fk_degree_job_job_id
+	ADD CONSTRAINT fk_degree_job_job_id
 	FOREIGN KEY (job_id)
 	REFERENCES job(job_id)
 ;
 
 -- Degree_Job degree_id
-	ADD CONSTANT fk_degree_job_degree_id
+ALTER TABLE degree_job
+	ADD CONSTRAINT fk_degree_job_degree_id
 	FOREIGN KEY (degree_id)
 	REFERENCES degree(degree_id)
 ;
 
 -- SEED DATA
+-- Real People and Degrees, Fake Salaries.
 
 -- Person table
 INSERT INTO person
@@ -131,3 +133,34 @@ VALUES
 	('Carolyn', 'Oathout')
 ;
 
+-- Job table
+INSERT INTO job
+	(person_id, job_title, business_name, salary, description)
+VALUES
+	(1, 'Cash Reconciliation Specialist', 'Charter Foods', 50000, 'Responsible for ensuring accurate and timely reconciliation of cash transactions within Charter Foods.'),
+    (2, 'Staff Accountant', 'NC CPA Firm', 55000, 'Responsible for maintaining financial records, preparing financial reports, and analyzing financial data for clients at NC CPA Firm.'),
+    (3, 'Lecturer and MACC Program Coordinator', 'UTK', 60000, 'Responsible for teaching courses and coordinating the Master of Accountancy (MACC) program at UTK.'),
+    (4, 'Accounts Receivable Clerk', 'World Choice Investments', 45000, 'Responsible for processing invoices, monitoring accounts receivable, and ensuring timely payments at World Choice Investments.'),
+    (5, 'Audit Intern', 'LBMC', 40000, 'Assisting audit teams in conducting financial audits and providing support in analyzing financial statements at LBMC.'),
+    (6, 'Coordinator in Instructional Design', 'WSCC', 50000, 'Responsible for designing and implementing instructional materials and programs at WSCC.'),
+    (7, 'Assoc Program Planner & Control Analyst', 'Textron Systems', 55000, 'Responsible for planning and controlling program schedules, budgets, and resources at Textron Systems.'),
+    (8, 'Tax Staff Accountant', 'LBMC', 55000, 'Responsible for preparing and reviewing tax returns, conducting tax research, and assisting with tax planning at LBMC.'),
+    (9, 'Business Integration Analyst', 'Pilot', 60000, 'Responsible for analyzing business processes and systems, identifying opportunities for improvement, and implementing integration solutions at Pilot.'),
+    (10, 'Esthetician', 'Self-employed', 40000, 'Providing skincare treatments and services to clients as a self-employed Esthetician.'),
+    (11, 'Senior Accountant', 'WSCC', 65000, 'Responsible for overseeing financial operations, preparing financial statements, and providing financial analysis and advice at WSCC.'),
+    (12, 'Director of Acquisitions and Asset Management', 'Safe Harbor Investments', 80000, 'Responsible for identifying and evaluating investment opportunities, negotiating acquisitions, and managing assets at Safe Harbor Investments.'),
+    (13, 'Fraud Ops Specialist', 'Citi', 55000, 'Responsible for identifying and investigating fraudulent activities, implementing fraud prevention measures, and minimizing financial losses at Citi.'),
+    (14, 'Director of Bookkeeping', 'NHC Holston Health and Rehab', 70000, 'Responsible for overseeing bookkeeping operations, managing financial records, and ensuring compliance with accounting standards at NHC Holston Health and Rehab.'),
+    (15, 'Supervisor, Talent Acquisition', 'Dollywood', 60000, 'Responsible for leading talent acquisition efforts, recruiting and hiring employees, and implementing recruitment strategies at Dollywood.'),
+    (16, 'General Manager', 'Riverstone Resort and Spa', 75000, 'Responsible for overall management and operations of Riverstone Resort and Spa, including guest services, staff management, and financial performance.'),
+    (17, 'Corporate Director of Sales', 'Eskola LLC', 80000, 'Responsible for developing and implementing sales strategies, managing sales teams, and achieving revenue targets at Eskola LLC.'),
+    (18, 'Recruiter', 'Edward Jones', 55000, 'Responsible for sourcing, recruiting, and hiring candidates to fill various positions within Edward Jones.'),
+    (19, 'Corporate National Account Manager', 'Performance Food Service', 70000, 'Responsible for managing national accounts, building relationships with key clients, and driving sales growth at Performance Food Service.'),
+    (20, 'Accounts Receivable Team Lead', 'Axle Logistics', 60000, 'Responsible for leading the accounts receivable team, managing collections, and resolving payment issues at Axle Logistics.'),
+    (21, 'Logistics Consultant', 'Axle Logistics', 65000, 'Providing consulting services to clients on logistics and supply chain management, optimizing transportation networks, and reducing costs at Axle Logistics.'),
+    (22, 'Director Supply Chain Management', 'TEAM Technologies', 75000, 'Responsible for overseeing supply chain operations, managing inventory, and optimizing distribution networks at TEAM Technologies.'),
+    (23, 'Owner', 'What To Do Magazine', 100000, 'Responsible for overall management and direction of What To Do Magazine, including editorial content, advertising sales, and business development.'),
+    (24, 'Staff Accountant', 'Purkey, Carter, Compton, Swann', 55000, 'Responsible for preparing financial statements, reconciling accounts, and analyzing financial data for clients at Purkey, Carter, Compton, Swann.'),
+    (25, 'Accounts Receivable Clerk', 'Landair', 45000, 'Responsible for processing invoices, posting payments, and reconciling accounts receivable at Landair.'),
+    (26, 'Accountant', 'Internet Marketing Expert Group', 55000, 'Responsible for managing financial records, preparing financial reports, and providing financial analysis for Internet Marketing Expert Group.');
+;
