@@ -36,11 +36,20 @@ CREATE TABLE degree (
 	major VARCHAR(50,
 	concentration VARCHAR(50),
 	year_awarded SMALLINT,
-	person_id NOT NULL
+	person_id NOT NULL,
 	CONSTRAINT pk_degree
 		PRIMARY KEY (degree_id)
 );
 
 -- JOB TABLE
+CREATE TABLE job {
+	person_id INT NOT NULL, 
+	job_title VARCHAR(50) NOT NULL,
+	business_name VARCHAR(50),
+	salary DECIMAL(13,2),
+	description TEXT,
+	CONSTRAINT pk_job
+		PRIMARY KEY (person_id, job_title)
+);
 
 -- DEGREE_JOB TABLE
