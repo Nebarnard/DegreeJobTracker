@@ -5,6 +5,7 @@ DROP DATABASE IF EXISTS DegreeJobTracker;
 CREATE DATABASE DegreeJobTracker;
 
 -- USING DATABASE
+GO
 USE DegreeJobTracker;
 
 -- DROP all TABLES
@@ -18,7 +19,7 @@ DROP TABLE IF EXISTS person;
 
 -- PERSON TABLE
 CREATE TABlE person (
-	person_id INT NOT NULL IDENTITY,
+	person_id IDENTITY INT NOT NULL UNIQUE,
 	first_name VARCHAR(35) NOT NUlL, 
 	last_name VARCHAR(35) NOT NULL,
 	email VARCHAR(70),
@@ -28,7 +29,17 @@ CREATE TABlE person (
 );
 	
 -- DEGREE TABLE
-
+CREATE TABLE DEGREE (
+	degree_id IDENTITY INT NOT NULL UNIQUE,
+	[type] VARCHAR(20) NOT NULL, 
+	program VARCHAR(50), 
+	major VARCHAR(50,
+	concentration VARCHAR(50),
+	year_awarded SMALLINT,
+	person_id NOT NULL
+	CONSTRAINT pk_degree
+		PRIMARY KEY (degree_id)
+);
 -- JOB TABLE
 
 -- DEGREE_JOB TABLE
