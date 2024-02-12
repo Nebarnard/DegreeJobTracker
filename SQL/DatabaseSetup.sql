@@ -89,3 +89,39 @@ ALTER TABLE degree_job
 	FOREIGN KEY (degree_id)
 	REFERENCES degree(degree_id)
 ;
+
+-- SEED DATA
+
+-- Person table
+INSERT INTO person
+	(first_name, last_name)
+VALUES 
+	('Amber', 'Fields'),
+	('Maria', 'Miller'),
+	('Chris', 'Perez'),
+	('Ryan', 'Rupard'),
+	('Allie', 'Hodges'),
+	('Seth', 'Kerney'),
+	('Lacey', 'Ketron'),
+	('Nayland', 'Prince'),
+	('Derek', 'Dunsmore'),
+	('Amy', 'Koenig'),
+	('Hannah', 'Mills'),
+	('Malik', 'Kyle'),
+	('Ariel', 'Lowery'),
+	('Mollie', 'Owens'),
+	('Kelly', 'Ayers'),
+	('Dustin', 'Hurst'),
+	('David', 'Self'),
+	('Carissa', 'Helton'),
+	('Laura', 'Burchfield'),
+	('Kelly', 'Cordle'),
+	('Ethan', 'Oakes'),
+	('Bristoe', 'Bible'),
+	('Gregory', 'Payne'),
+	('Stephanie', 'Derochers'),
+	('Niral', 'Patel'),
+	('Felicia', 'McCarroll'),
+	('Carolyn', 'Oathout')
+;
+
