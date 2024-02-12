@@ -10,7 +10,6 @@ USE DegreeJobTracker;
 
 -- DROP all TABLES
 DROP TABLE IF EXISTS [user];
-DROP TABLE IF EXISTS degree_job;
 DROP TABLE IF EXISTS degree;
 DROP TABLE IF EXISTS job;
 DROP TABLE IF EXISTS person;
@@ -59,15 +58,6 @@ CREATE TABLE job (
 		PRIMARY KEY (job_id)
 );
 
--- DEGREE_JOB TABLE
-CREATE TABLE degree_job (
-	person_id INT NOT NULL,
-	job_id INT NOT NULL,
-	degree_id INT NOT NULL,
-	CONSTRAINT pk_degree_job
-		PRIMARY KEY (person_id, job_id, degree_id)
-);
-
 -- FOREIGN KEY CONSTRAINTS
 -- Degree person_id
 ALTER TABLE degree
@@ -81,20 +71,6 @@ ALTER TABLE job
 	ADD CONSTRAINT fk_job_person
 	FOREIGN KEY (person_id)
 	REFERENCES person(person_id)
-;
-
---Degree_Job job_id
-ALTER TABLE degree_job
-	ADD CONSTRAINT fk_degree_job_job_id
-	FOREIGN KEY (job_id)
-	REFERENCES job(job_id)
-;
-
--- Degree_Job degree_id
-ALTER TABLE degree_job
-	ADD CONSTRAINT fk_degree_job_degree_id
-	FOREIGN KEY (degree_id)
-	REFERENCES degree(degree_id)
 ;
 
 -- SEED DATA
@@ -163,4 +139,37 @@ VALUES
     (24, 'Staff Accountant', 'Purkey, Carter, Compton, Swann', 55000, 'Responsible for preparing financial statements, reconciling accounts, and analyzing financial data for clients at Purkey, Carter, Compton, Swann.'),
     (25, 'Accounts Receivable Clerk', 'Landair', 45000, 'Responsible for processing invoices, posting payments, and reconciling accounts receivable at Landair.'),
     (26, 'Accountant', 'Internet Marketing Expert Group', 55000, 'Responsible for managing financial records, preparing financial reports, and providing financial analysis for Internet Marketing Expert Group.');
+;
+
+-- Degree TABLE
+INSERT INTO degree
+	([type], major, concentration, person_id)
+VALUES
+	('AAS', 'Accounting', NULL, 1), 
+	('AAS', 'Accounting', NULL, 2),
+	('MA', 'Accounting', NULL, 3),
+	('AAS', 'Accounting', NULL, 4),
+	('BS', 'Accounting', 'Business Administration', 5),
+	('BS', 'Marketing', 'Business Administration', 6),
+	('BS', 'Supply Chain Management', 'Business Administration', 7),
+	('MA', 'Accounting', NULL, 8),
+	('AAS', 'Accounting', NULL, 9),
+	('AS', 'Business', NULL, 10),
+	('BS', 'Accounting', NULL, 11),
+	('MA', 'Business', 'Business Administration', 12),
+	('BS', 'Pharmacy', NULL, 13),
+	('AS', 'Math', NULL, 14),
+	('AS', 'Business', NULL, 15),
+	('AS', 'Psychology and Criminal Investigation', NULL, 16),
+	('BS', 'Business', 'Business Administration', 17),
+	('BS', 'Business', 'Business Administration', 18),
+	('AAS', 'Culinary', NULL, 19),
+	('AAS', 'Business', 'Business Management', 20),
+	('BS', 'Business', 'Supply Chain Management', 21),
+	('BS', 'Business', 'Logistics', 22),
+	('AAS', 'Hospitality Managemnt', NULL, 23),
+	('AAS', 'Accounting', NULL, 24),
+	('AAS', 'Accounting', NULL, 25),
+	('AAS', 'Accounting', NULL, 26),
+	('AAS', 'Accounting', NULL, 27)
 ;
