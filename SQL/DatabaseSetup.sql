@@ -53,3 +53,10 @@ CREATE TABLE job {
 );
 
 -- DEGREE_JOB TABLE
+CREATE TABLE degree_job (
+	person_id INT NOT NULL,
+	job_title VARCHAR(50) NOT NULL,
+	degree_id INT NOT NULL,
+	CONSTRAINT pk_degree_job
+		PRIMARY KEY (person_id, job_title, degree_id)
+);
