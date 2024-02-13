@@ -2,7 +2,53 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="row mt-3">
+    <div class="col-md-2">
+        <!-- Search Job Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job" aria-describedby="basic-addon-job">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Business Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business" aria-describedby="basic-addon-business">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Salary Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary" aria-describedby="basic-addon-salary">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Degree Type Dropdown -->
+        <div class="form-group">
+            <label for="degreeType" class="d-block">Degree Type</label>
+            <select class="form-control" id="degreeType">
+                <option value="bachelors">Bachelor's</option>
+                <option value="masters">Master's</option>
+                <option value="phd">PhD</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Degree Concentration Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration" aria-describedby="basic-addon-concentration">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
 </div>

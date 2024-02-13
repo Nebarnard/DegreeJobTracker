@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h2>Login to Manage the Database</h2>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <!-- Username Input Box -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+            </div>
+            <!-- Password Input Box -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <!-- Login Button -->
+            <div class="text-center">
+                <a href="@Url.Action("Admin", "Home")" class="btn btn-primary">Login</a>
+            </div>
+            <!-- Click here to go back -->
+            <div class="text-center mt-3">
+                <a href="@Url.Action("Index", "Home")">Click here to go back</a>
+            </div>
+        </div>
+    </div>
+</div>
