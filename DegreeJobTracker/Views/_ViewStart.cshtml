@@ -1,3 +1,14 @@
 ﻿@{
-    Layout = "_Layout";
+    // Get Name of controller
+    string controllerName = ViewContext.RouteData.Values["controller"] as string;
+
+    // Set Default Layout
+    string layout = "_Layout";
+
+    // Set layout based on controller name
+    if (controllerName == "Admin") {
+        layout = "_AdminLayout";
+    } // end if
+
+    Layout = layout;
 }

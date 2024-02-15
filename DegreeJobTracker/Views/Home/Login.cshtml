@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-5">
@@ -21,11 +20,11 @@
             </div>
             <!-- Login Button -->
             <div class="text-center">
-                <a href="@Url.Action("Admin", "Home")" class="btn btn-primary">Login</a>
+                <a asp-action="Index" asp-controller="Admin" class="btn btn-primary">Login</a>
             </div>
             <!-- Click here to go back -->
             <div class="text-center mt-3">
-                <a href="@Url.Action("Index", "Home")">Click here to go back</a>
+                <a asp-action="Index" asp-controller="Home">Click here to go back</a>
             </div>
         </div>
     </div>
