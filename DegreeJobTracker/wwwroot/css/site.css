@@ -16,3 +16,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Ws Colors */
+.ws-red-color {
+    color: #E91540;
+}
+
+.ws-red-bg {
+    background-color: #E91540;
+}
+
+.ws-blue-color {
+    color: #34679a;
+}
+
+.ws-blue-bg {
+    background-color: #34679a;
+}
