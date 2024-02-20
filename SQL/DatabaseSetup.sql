@@ -10,6 +10,7 @@ USE DegreeJobTracker;
 
 -- DROP all TABLES
 DROP TABLE IF EXISTS [user];
+DROP TABLE IF EXISTS degree_job;
 DROP TABLE IF EXISTS degree;
 DROP TABLE IF EXISTS job;
 DROP TABLE IF EXISTS person;
@@ -23,7 +24,7 @@ CREATE TABLE user_credential (
 );
 
 -- PERSON TABLE
-CREATE TABlE person (
+CREATE TABLE person (
 	person_id INT IDENTITY NOT NULL UNIQUE,
 	first_name VARCHAR(35) NOT NUlL, 
 	last_name VARCHAR(35) NOT NULL,
@@ -55,7 +56,16 @@ CREATE TABLE job (
 	salary DECIMAL(13,2),
 	description TEXT,
 	CONSTRAINT pk_job
-		PRIMARY KEY (job_id)
+		PRIMARY KEY (job_id, person_id)
+);
+
+-- DEGREE_JOB TABLE
+CREATE TABLE degree_job (
+	person_id INT NOT NULL,
+	job_id INT NOT NULL,
+	degree_id INT NOT NULL,
+	CONSTRAINT pk_degree_job
+		PRIMARY KEY (person_id, job_id, degree_id)
 );
 
 -- FOREIGN KEY CONSTRAINTS
@@ -66,11 +76,25 @@ ALTER TABLE degree
 	REFERENCES person(person_id)
 ;
 
---Job person_id
+-- Job person_id
 ALTER TABLE job
 	ADD CONSTRAINT fk_job_person
 	FOREIGN KEY (person_id)
 	REFERENCES person(person_id)
+;
+
+-- Degree_Job person_id
+ALTER TABLE degree_job
+	ADD CONSTRAINT fk_degree_job_job_person
+	FOREIGN KEY (job_id, person_id)
+	REFERENCES job(job_id, person_id)
+;
+
+-- Degree_Job person_id
+ALTER TABLE degree_job
+	ADD CONSTRAINT fk_degree_job_degree
+	FOREIGN KEY (degree_id)
+	REFERENCES degree(degree_id)
 ;
 
 -- SEED DATA
@@ -172,4 +196,36 @@ VALUES
 	('AAS', 'Accounting', NULL, 25),
 	('AAS', 'Accounting', NULL, 26),
 	('AAS', 'Accounting', NULL, 27)
+;
+
+-- Degree_Job TABLE
+INSERT INTO degree_job
+	(person_id, job_id, degree_id)
+VALUES
+	(1, 1, 1),
+	(2, 2, 2),
+	(3, 3, 3),
+	(4, 4, 4),
+	(5, 5, 5), 
+	(6, 6, 6),
+	(7, 7, 7),
+	(8, 8, 8),
+	(9, 9, 9),
+	(10, 10, 10),
+	(11, 11, 11), 
+	(12, 12, 12), 
+	(13, 13, 13),
+	(14, 14, 14),
+	(15, 15, 15), 
+	(16, 16, 16),
+	(17, 17, 17),
+	(18, 18, 18),
+	(19, 19, 19),
+	(20, 20, 20),
+	(21, 21, 21),
+	(22, 22, 22),
+	(23, 23, 23), 
+	(24, 24, 24),
+	(25, 25, 25),
+	(26, 26, 26)
 ;
