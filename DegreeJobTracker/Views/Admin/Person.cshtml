@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Person";
+}
+<!-- Alignment Stuff -->
+<div class="row justify-content-center">
+<div class="col-md-4 row"> 
+    <!-- Title Bar -->
+    <h1 class="ws-blue-color text-center my-5">@ViewBag.Action Person</h1>
+
+    <!-- Form to Post-->
+    <form asp-action="Person" method="post">
+
+        <!-- First Name -->
+        <div class="col align-self-center mb-3">
+            <label class="form-label">First Name</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Last Name -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Last Year</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Buttons -->
+        <div class="col row align-self-center">
+            <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg text-white col mx-3">Cancel</a>
+            <button type="submit" class="btn ws-blue-bg text-white col mx-3">Add Person</button>
+        </div>
+    </form>
+</div>
+</div>
