@@ -16,5 +16,17 @@ namespace DegreeJobTracker.Controllers {
             return View(); 
         } // end method
 
+        // Add job View
+        [HttpGet]
+        public IActionResult Job() {
+            // Action Name for page
+            ViewBag.Action = "Add";
+
+            // Person name for page
+            ViewBag.Name = "Person Name";
+
+            return View();
+        } // end method
+
     } // end class
 } // end namespace

@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Job";
+}
+<!-- Alignment Stuff -->
+<div class="row justify-content-center">
+<div class="col-md-4 row"> 
+    <!-- Title Bar -->
+    <h1 class="ws-blue-color text-center my-5">@ViewBag.Name - @ViewBag.Action Job</h1>
+
+    <!-- Form to Post-->
+    <form asp-action="Job" method="post">
+
+        <!-- Job Title -->
+        <div class="col align-self-center mb-3">
+            <label class="form-label">Job Title <div class="ws-red-color d-inline">*</div></label>
+            <input class="form-control">
+        </div>
+
+        <!-- Business Name -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Business Name</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Salary -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Salary</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Description -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Description</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Degree Dropdown -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Select Degree</label>
+            <select class="form-select">
+                <option value="">select a degree</option>
+                <!-- Add Foreach For Looping through all degrees a person has -->
+                <option value="N/a">N/a</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="col row align-self-center">
+            <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg text-white col mx-3">Cancel</a>
+            <button type="submit" class="btn ws-blue-bg text-white col mx-3">Add Person</button>
+        </div>
+    </form>
+</div>
+</div>
