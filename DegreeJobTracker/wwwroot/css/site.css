@@ -27,11 +27,11 @@ body {
 }
 
 .ws-blue-color {
-    color: #34679a;
+    color: #001641;
 }
 
 .ws-blue-bg {
-    background-color: #34679a;
+    background-color: #001641;
 }
 
 /* Custom Buttons */
@@ -48,13 +48,13 @@ body {
 }
 
 .ws-blue-btn {
-    background-color: #34679a;
-    border: 3px solid #34679a;
+    background-color: #001641;
+    border: 3px solid #001641;
     color: white;
 }
 
 .ws-blue-btn:hover {
     background-color: white;
-    border: 3px solid #34679a;
-    color: #34679a;
+    border: 3px solid #001641;
+    color: ##001641;
 }
