@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Degree";
+}
+<!-- Alignment Stuff -->
+<div class="row justify-content-center">
+<div class="col-md-4 row"> 
+    <!-- Title Bar -->
+    <h1 class="ws-blue-color text-center my-5">Person Name - @ViewBag.Action Degree</h1>
+
+    <!-- Form to Post-->
+    <form asp-action="Degree" method="post">
+
+        <!-- Degree Type -->
+        <div class="col align-self-center mb-3">
+            <label class="form-label">Degree Type <div class="ws-red-color d-inline">*</div></label>
+            <input class="form-control">
+        </div>
+
+        <!-- Degree Program -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Degree Program</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Major  -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Major</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Concentration -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Concentration</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Year Awarded -->
+        <div class=" col align-self-center mb-4">
+            <label class="form-label">Year Awarded</label>
+            <input class="form-control">
+        </div>
+
+        <!-- Buttons -->
+        <div class="col row align-self-center">
+            <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
+            <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">Add Person</button>
+        </div>
+    </form>
+</div>
+</div>
