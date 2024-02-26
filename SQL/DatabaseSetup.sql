@@ -49,18 +49,18 @@ CREATE TABLE degree (
 
 -- JOB TABLE
 CREATE TABLE job (
-	job_id INT IDENTITY NOT NULL UNIQUE,
-	person_id INT NOT NULL, 
+	job_id INT IDENTITY NOT NULL UNIQUE, 
 	job_title VARCHAR(50) NOT NULL,
 	business_name VARCHAR(50),
 	salary DECIMAL(13,2),
 	description TEXT,
+	person_id INT NOT NULL,
 	CONSTRAINT pk_job
-		PRIMARY KEY (job_id, person_id)
+		PRIMARY KEY (job_id)
 );
 
--- DEGREE_JOB TABLE
-CREATE TABLE degree_job (
+-- DEGREE_JOB_PERSON TABLE
+CREATE TABLE degree_job_person (
 	person_id INT NOT NULL,
 	job_id INT NOT NULL,
 	degree_id INT NOT NULL,
@@ -83,18 +83,25 @@ ALTER TABLE job
 	REFERENCES person(person_id)
 ;
 
--- Degree_Job person_id
-ALTER TABLE degree_job
-	ADD CONSTRAINT fk_degree_job_job_person
-	FOREIGN KEY (job_id, person_id)
-	REFERENCES job(job_id, person_id)
-;
-
--- Degree_Job person_id
-ALTER TABLE degree_job
-	ADD CONSTRAINT fk_degree_job_degree
+-- Degree_Job_Person degree_id
+ALTER TABLE degree_job_person
+	ADD CONSTRAINT fk_degree_job_person_degree
 	FOREIGN KEY (degree_id)
 	REFERENCES degree(degree_id)
+;
+
+-- Degree_Job_Person job_id
+ALTER TABLE degree_job_person
+	ADD CONSTRAINT fk_degree_job_person_job
+	FOREIGN KEY (job_id)
+	REFERENCES job(job_id)
+;
+
+-- Degree_Job_Person person_id
+ALTER TABLE degree_job_person
+	ADD CONSTRAINT fk_degree_job_person_person
+	FOREIGN KEY (person_id)
+	REFERENCES person(person_id)
 ;
 
 -- SEED DATA
@@ -199,7 +206,7 @@ VALUES
 ;
 
 -- Degree_Job TABLE
-INSERT INTO degree_job
+INSERT INTO degree_job_person
 	(person_id, job_id, degree_id)
 VALUES
 	(1, 1, 1),
