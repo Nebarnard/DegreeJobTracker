@@ -2,8 +2,56 @@
     ViewData["Title"] = "Admin";
 }
 
-<div class="row justify-content-center mt-4">
-    <div class="col-md-6">
-        <!-- Your Admin content goes here -->
+<div class="row mt-3">
+    <div class="col-md-2">
+        <!-- Search Job Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job" aria-describedby="basic-addon-job">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Business Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business" aria-describedby="basic-addon-business">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Salary Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary" aria-describedby="basic-addon-salary">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Degree Type Dropdown -->
+        <div class="form-group">
+            <label for="degreeType" class="d-block">Degree Type</label>
+            <select class="form-control" id="degreeType">
+                <option value="bachelors">Bachelor's</option>
+                <option value="masters">Master's</option>
+                <option value="phd">PhD</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <!-- Search Degree Concentration Bar -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration" aria-describedby="basic-addon-concentration">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <!-- Add Person Button -->
+    <div class="col-md-2">
+        <button class="btn ws-blue-bg col mx-3 ws-blue-btn" type="button">Add Person</button>
     </div>
 </div>
