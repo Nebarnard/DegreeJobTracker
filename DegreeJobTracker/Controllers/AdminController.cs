@@ -38,6 +38,27 @@ namespace DegreeJobTracker.Controllers {
             return View(query);
         } // end method
 
+        // Admin View All Info
+        public IActionResult Info(int id) {
+            // Get Degree
+            var degrees = context.Degrees
+            .Where(d => d.PersonId == id)
+            .ToList();
+
+            // Get Job
+            var jobs = context.Jobs
+            .Where(j => j.PersonId == id)
+            .ToList();
+
+            // Get Name
+            var name = context.People
+                .Where(p => p.PersonId == id)
+                .Select(p => p.FirstName + " " + p.LastName)
+                .FirstOrDefault();
+
+            return View(new ViewAllInfoViewModel(id, name, jobs, degrees));
+        } // end method
+
         // Add Person View
         [HttpGet]
         public IActionResult Person() {

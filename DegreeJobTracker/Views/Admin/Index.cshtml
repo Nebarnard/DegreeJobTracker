@@ -73,7 +73,7 @@
             <td>@person.Degree</td>
             <td>@person.Job</td>
             <td>@person.Salary.ToString("C2")</td>
-            <td><a asp-action="Info" asp-controller="Admin" class="btn ws-blue-btn">View All Info</a></td>
+            <td><a asp-action="Info" asp-controller="Admin" asp-route-id ="@person.PersonId" class="btn ws-blue-btn">View All Info</a></td>
             <td><i class="fas fa-edit ws-blue-color"></i>&nbsp;<i class="fas fa-trash ws-red-color"></i></td>
         </tr>
     }
