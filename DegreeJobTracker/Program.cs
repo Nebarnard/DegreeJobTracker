@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using DegreeJobTracker.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add EF Core DI
+builder.Services.AddDbContext<DegreeJobTrackerContext>(options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DegreeJobTrackerContext")));
 
 var app = builder.Build();
 

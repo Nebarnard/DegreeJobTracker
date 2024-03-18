@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<DegreeJobPersonAdminViewModel>
+@{
     ViewData["Title"] = "Admin";
 }
 
@@ -54,5 +55,27 @@
     <div class="col-md-2">
         <button class="btn ws-blue-bg col mx-3 ws-blue-btn" type="button">Add Person</button>
     </div>
-    <i class="fas fa-trash"></i>
+    
+    <table class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Highest Degree</td>
+                <td>Current Job</td>
+                <td>Current Salary</td>
+                <td>View All Info</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+    @foreach (var person in Model) {
+        <tr>
+            <td>@person.Name</td>
+            <td>@person.Degree</td>
+            <td>@person.Job</td>
+            <td>@person.Salary.ToString("C2")</td>
+            <td><a asp-action="Info" asp-controller="Admin" class="btn ws-blue-btn">View All Info</a></td>
+            <td><i class="fas fa-edit ws-blue-color"></i>&nbsp;<i class="fas fa-trash ws-red-color"></i></td>
+        </tr>
+    }
+    </table>
 </div>

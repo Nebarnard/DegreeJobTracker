@@ -1,10 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DegreeJobTracker.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DegreeJobTracker.Controllers {
     public class AdminController : Controller {
+
+        private DegreeJobTrackerContext context { get; set; }
+
+        public AdminController(DegreeJobTrackerContext ctx) => context = ctx;
+
         // Admin Home
         public IActionResult Index() {
-            return View();
+            var query = context.People
+            .Join(context.DegreeJobPeople,
+                  p => p.PersonId,
+                  djp => djp.PersonId,
+                  (p, djp) => new { Person = p, DegreeJobPerson = djp })
+            .Join(context.Jobs,
+                  pd => pd.DegreeJobPerson.JobId,
+                  j => j.JobId,
+                  (pd, j) => new { pd.Person, pd.DegreeJobPerson, Job = j })
+            .Join(context.Degrees,
+                  pdj => pdj.DegreeJobPerson.DegreeId,
+                  d => d.DegreeId,
+                  (pdj, d) => new { pdj.Person, DegreeJobPerson = pdj.DegreeJobPerson, pdj.Job, Degree = d })
+            .GroupBy(
+                pdjd => new { pdjd.Person.PersonId, pdjd.Person.FirstName, pdjd.Person.LastName, pdjd.Degree.Type, pdjd.Degree.Major, pdjd.Job.JobTitle, pdjd.Job.Salary },
+                (key, group) => new DegreeJobPersonAdminViewModel {
+                    PersonId = key.PersonId,
+                    Name = $"{key.FirstName} {key.LastName}",
+                    Degree = $"{key.Type} {key.Major}",
+                    Job = key.JobTitle,
+                    Salary = (decimal)key.Salary
+                })
+            .ToList();
+
+            return View(query);
         } // end method
 
         // Add Person View
