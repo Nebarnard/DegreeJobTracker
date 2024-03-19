@@ -2,53 +2,66 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="container-fluid mt-3">
 
-<div class="row mt-3">
-    <div class="col-md-2">
-        <!-- Search Job Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job" aria-describedby="basic-addon-job">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Search Job Bar -->
+            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job">
         </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Search Business Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business" aria-describedby="basic-addon-business">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+        <div class="col-md-2">
+            <!-- Search Business Bar -->
+            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business">
         </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Search Salary Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary" aria-describedby="basic-addon-salary">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+        <div class="col-md-2">
+            <!-- Search Salary Bar -->
+            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary">
         </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Degree Type Dropdown -->
-        <div class="form-group">
-            <label for="degreeType" class="d-block">Degree Type</label>
+        <div class="col-md-2">
+            <!-- Degree Type Dropdown -->
+            <!-- Assuming the same style for dropdown as provided -->
             <select class="form-control" id="degreeType">
                 <option value="bachelors">Bachelor's</option>
                 <option value="masters">Master's</option>
                 <option value="phd">PhD</option>
             </select>
         </div>
+        <div class="col-md-2">
+            <!-- Search Degree Concentration Bar -->
+            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration">
+        </div>
+        <div class="col-md-2">
+            <!-- Add Person Button, assuming this remains as per your new style -->
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
     </div>
-    <div class="col-md-2">
-        <!-- Search Degree Concentration Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration" aria-describedby="basic-addon-concentration">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+
+        <!-- Table -->
+    <div class="row mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Job</th>
+                        <th>Business</th>
+                        <th>Salary</th>
+                        <th>Description</th>
+                        <th>Degree</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Placeholder rows, replace with dynamic content as needed -->
+                    @for(int i = 0; i < 10; i++) {
+                        <tr>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>$$$</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
