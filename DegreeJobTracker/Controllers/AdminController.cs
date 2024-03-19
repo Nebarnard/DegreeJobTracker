@@ -1,5 +1,6 @@
 ﻿using DegreeJobTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace DegreeJobTracker.Controllers {
@@ -27,7 +28,7 @@ namespace DegreeJobTracker.Controllers {
             .GroupBy(
                 pdjd => new { pdjd.Person.PersonId, pdjd.Person.FirstName, pdjd.Person.LastName, pdjd.Degree.Type, pdjd.Degree.Major, pdjd.Job.JobTitle, pdjd.Job.Salary },
                 (key, group) => new DegreeJobPersonAdminViewModel {
-                    PersonId = key.PersonId,
+                    PersonId = (int)key.PersonId,
                     Name = $"{key.FirstName} {key.LastName}",
                     Degree = $"{key.Type} {key.Major}",
                     Job = key.JobTitle,
@@ -59,13 +60,14 @@ namespace DegreeJobTracker.Controllers {
             return View(new ViewAllInfoViewModel(id, name, jobs, degrees));
         } // end method
 
+        // Add Views
         // Add Person View
         [HttpGet]
         public IActionResult Person() {
             // Action Name for page
             ViewBag.Action = "Add";
 
-            return View(); 
+            return View("Person", new Person()); 
         } // end method
 
         // Add Degree View
@@ -74,10 +76,23 @@ namespace DegreeJobTracker.Controllers {
             // Action Name for page
             ViewBag.Action = "Add";
 
-            // Person name for page
-            ViewBag.Name = "Person Name";
+            // Get latest person added to db
+            var query = context.People
+            .Where(p => p.PersonId == context.People.Max(p => p.PersonId))
+            .GroupBy(p => new { p.FirstName, p.LastName })
+            .Select(g => new {
+                Name = $"{g.Key.FirstName} {g.Key.LastName}",
+                MaxPersonId = g.Max(p => p.PersonId)
+            })
+            .FirstOrDefault();
 
-            return View();
+            // Person name for page
+            ViewBag.Name = $"{query.Name}";
+
+            // PersonID for page
+            ViewBag.PersonId = query.MaxPersonId;
+
+            return View("Degree", new Degree());
         } // end method
 
         // Add Job View
@@ -86,10 +101,74 @@ namespace DegreeJobTracker.Controllers {
             // Action Name for page
             ViewBag.Action = "Add";
 
-            // Person name for page
-            ViewBag.Name = "Person Name";
+            // Get latest person added to db
+            var query = context.People
+            .Where(p => p.PersonId == context.People.Max(p => p.PersonId))
+            .GroupBy(p => new { p.FirstName, p.LastName })
+            .Select(g => new {
+                Name = $"{g.Key.FirstName} {g.Key.LastName}",
+                MaxPersonId = g.Max(p => p.PersonId)
+            })
+            .FirstOrDefault();
 
-            return View();
+            // Person name for page
+            ViewBag.Name = $"{query.Name}";
+
+            // PersonID for page
+            ViewBag.PersonId = query.MaxPersonId;
+
+            // Degrees For Page
+            ViewBag.Degrees = context.Degrees.OrderBy(d => d.DegreeId).Where(d => d.PersonId == query.MaxPersonId).ToList();
+
+            return View("Job", new Job());
+        } // end method
+
+        // Posts
+        [HttpPost]
+        public IActionResult Person(Person person) {
+            if (ModelState.IsValid) {
+                if (person.PersonId == 0) 
+                    context.People.Add(person);
+                else
+                    context.People.Update(person);
+                context.SaveChanges();
+                return RedirectToAction("Degree", "Admin");
+            } else {
+                ViewBag.Action = (person.PersonId == null) ? "Add" : "Edit";
+                return View(person);
+            }
+        } // end method
+
+        // Posts
+        [HttpPost]
+        public IActionResult Degree(Degree degree) {
+            if (ModelState.IsValid) {
+                if (degree.DegreeId == null)
+                    context.Degrees.Add(degree);
+                else
+                    context.Degrees.Update(degree);
+                context.SaveChanges();
+                return RedirectToAction("Job", "Admin");
+            } else {
+                ViewBag.Action = (degree.DegreeId == null) ? "Add" : "Edit";
+                return View(degree);
+            }
+        } // end method
+
+        // Posts
+        [HttpPost]
+        public IActionResult Job(Job job) {
+            if (ModelState.IsValid) {
+                if (job.JobId == null)
+                    context.Jobs.Add(job);
+                else
+                    context.Jobs.Update(job);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Admin");
+            } else {
+                ViewBag.Action = (job.JobId == null) ? "Add" : "Edit";
+                return View(job);
+            }
         } // end method
 
     } // end class

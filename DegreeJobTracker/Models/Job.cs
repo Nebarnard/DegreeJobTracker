@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace DegreeJobTracker.Models
@@ -10,14 +11,17 @@ namespace DegreeJobTracker.Models
             DegreeJobPeople = new HashSet<DegreeJobPerson>();
         }
 
-        public int JobId { get; set; }
+        public int? JobId { get; set; }
         public string JobTitle { get; set; } = null!;
         public string? BusinessName { get; set; }
         public decimal? Salary { get; set; }
         public string? Description { get; set; }
         public int PersonId { get; set; }
 
+        [ValidateNever]
         public virtual Person Person { get; set; } = null!;
+
+        [ValidateNever]
         public virtual ICollection<DegreeJobPerson> DegreeJobPeople { get; set; }
     }
 }

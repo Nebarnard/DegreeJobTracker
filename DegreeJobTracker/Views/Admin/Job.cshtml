@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Job
+@{
     ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Job";
 }
 <!-- Alignment Stuff -->
@@ -12,26 +13,26 @@
 
         <!-- Job Title -->
         <div class="col align-self-center mb-3">
-            <label class="form-label">Job Title <div class="ws-red-color d-inline">*</div></label>
-            <input class="form-control">
+            <label asp-for="JobTitle" class="form-label">Job Title <div class="ws-red-color d-inline">*</div></label>
+             <input asp-for="JobTitle" class="form-control">
         </div>
 
         <!-- Business Name -->
         <div class=" col align-self-center mb-4">
-            <label class="form-label">Business Name</label>
-            <input class="form-control">
+            <label asp-for="BusinessName" class="form-label">Business Name</label>
+            <input asp-for="BusinessName" class="form-control">
         </div>
 
         <!-- Salary -->
         <div class=" col align-self-center mb-4">
-            <label class="form-label">Salary</label>
-            <input class="form-control">
+            <label asp-for="Salary" class="form-label">Salary</label>
+            <input asp-for="Salary" class="form-control">
         </div>
 
         <!-- Description -->
         <div class=" col align-self-center mb-4">
-            <label class="form-label">Description</label>
-            <input class="form-control">
+            <label asp-for="Description" class="form-label">Description</label>
+            <input asp-for="Description" class="form-control">
         </div>
 
         <!-- Degree Dropdown -->
@@ -39,15 +40,17 @@
             <label class="form-label">Select Degree</label>
             <select class="form-select">
                 <option value="">select a degree</option>
-                <!-- Add Foreach For Looping through all degrees a person has -->
-                <option value="N/a">N/a</option>
+                @foreach(Degree d in ViewBag.Degrees) {
+                    <option value="@d.DegreeId">@d.Type @d.Major</option>
+                }
+                <option value="None">None</option>
             </select>
         </div>
 
         <!-- Buttons -->
         <div class="col row align-self-center">
             <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
-            <a asp-controller="Admin" asp-action="Index" class="btn ws-blue-bg col mx-3 ws-blue-btn">@ViewBag.Action Job</a>
+            <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">@ViewBag.Action Job</button>
         </div>
     </form>
 </div>
