@@ -3,79 +3,79 @@
     ViewData["Title"] = "Admin";
 }
 
-<div class="row mt-3">
-    <div class="col-md-2">
-        <!-- Search Job Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job" aria-describedby="basic-addon-job">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+<div class="container-fluid mt-3">
+    <h2 class="mb-3">Degree Job Tracker</h2>
+    <!-- Search and Add Person Section -->
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Search Name..." aria-label="Search Name">
         </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Search Business Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business" aria-describedby="basic-addon-business">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Search Salary Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary" aria-describedby="basic-addon-salary">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Degree Type Dropdown -->
-        <div class="form-group">
-            <label for="degreeType" class="d-block">Degree Type</label>
+        <div class="col-md-2">
             <select class="form-control" id="degreeType">
+                <option value="">Degree Type</option>
+                <option value="aas">A.A.S.</option>
                 <option value="bachelors">Bachelor's</option>
                 <option value="masters">Master's</option>
                 <option value="phd">PhD</option>
             </select>
         </div>
-    </div>
-    <div class="col-md-2">
-        <!-- Search Degree Concentration Bar -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration" aria-describedby="basic-addon-concentration">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Search Degree Concentration..." aria-label="Search Degree Concentration">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Search Job..." aria-label="Search Job">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" type="button">Add Person</button>
         </div>
     </div>
-    <!-- Add Person Button -->
-    <div class="col-md-2">
-        <button class="btn ws-blue-bg col mx-3 ws-blue-btn" type="button">Add Person</button>
+
+    <!-- Person List Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">First Name</th>
+                    
+                    <th scope="col">Highest Degree</th>
+                    <th scope="col">Current Job</th>
+                    <th scope="col">Current Salary</th>
+                    <th scope="col">View All Info</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var person in Model)
+                {
+                    <tr>
+                        <td>@person.Name</td>
+                        
+                        <td>@person.Degree</td>
+                        <td>@person.Job</td>
+                        <td>@person.Salary.ToString("C2")</td>
+                        <td>
+                            <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="btn btn-info">View All Info</a>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Admin" asp-route-id="@person.PersonId" class="text-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            &nbsp;
+                            <a asp-action="Delete" asp-controller="Admin" asp-route-id="@person.PersonId" class="text-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    
-    <table class="table table-responsive table-bordered">
-        <thead>
-            <tr>
-                <td>Name</td>
-                <td>Highest Degree</td>
-                <td>Current Job</td>
-                <td>Current Salary</td>
-                <td>View All Info</td>
-                <td>Action</td>
-            </tr>
-        </thead>
-    @foreach (var person in Model) {
-        <tr>
-            <td>@person.Name</td>
-            <td>@person.Degree</td>
-            <td>@person.Job</td>
-            <td>@person.Salary.ToString("C2")</td>
-            <td><a asp-action="Info" asp-controller="Admin" asp-route-id ="@person.PersonId" class="btn ws-blue-btn">View All Info</a></td>
-            <td><i class="fas fa-edit ws-blue-color"></i>&nbsp;<i class="fas fa-trash ws-red-color"></i></td>
-        </tr>
-    }
-    </table>
 </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
