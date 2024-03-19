@@ -11,11 +11,14 @@ namespace DegreeJobTracker.Models
             DegreeJobPeople = new HashSet<DegreeJobPerson>();
         }
 
+        [ValidateNever]
         public int? JobId { get; set; }
         public string JobTitle { get; set; } = null!;
         public string? BusinessName { get; set; }
         public decimal? Salary { get; set; }
         public string? Description { get; set; }
+
+        [ValidateNever]
         public int PersonId { get; set; }
 
         [ValidateNever]

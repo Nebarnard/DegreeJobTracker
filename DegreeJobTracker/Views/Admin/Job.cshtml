@@ -47,6 +47,8 @@
             </select>
         </div>
 
+        <input type="hidden" asp-for="PersonId" value="@(ViewBag.PersonId != null ? ViewBag.PersonId : 0)" />
+
         <!-- Buttons -->
         <div class="col row align-self-center">
             <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
