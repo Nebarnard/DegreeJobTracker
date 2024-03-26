@@ -1,4 +1,4 @@
-﻿@model Job
+﻿@model JobDegreePersonPost
 @{
     ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Job";
 }
@@ -37,8 +37,8 @@
 
         <!-- Degree Dropdown -->
         <div class=" col align-self-center mb-4">
-            <label class="form-label">Select Degree</label>
-            <select class="form-select">
+            <label asp-for="DegreeId" class="form-label">Select Degree</label>
+            <select asp-for="DegreeId" class="form-select">
                 <option value="">select a degree</option>
                 @foreach(Degree d in ViewBag.Degrees) {
                     <option value="@d.DegreeId">@d.Type @d.Major</option>

@@ -15,7 +15,7 @@ namespace DegreeJobTracker.Models
         public int? JobId { get; set; }
         public string JobTitle { get; set; } = null!;
         public string? BusinessName { get; set; }
-        public decimal? Salary { get; set; }
+        public decimal Salary { get; set; }
         public string? Description { get; set; }
 
         [ValidateNever]

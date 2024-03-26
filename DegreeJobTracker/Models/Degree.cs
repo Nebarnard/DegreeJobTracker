@@ -14,7 +14,7 @@ namespace DegreeJobTracker.Models
         public int DegreeId { get; set; }
         public string Type { get; set; } = null!;
         public string? Program { get; set; }
-        public string? Major { get; set; }
+        public string Major { get; set; }
         public string? Concentration { get; set; }
         public short? YearAwarded { get; set; }
 

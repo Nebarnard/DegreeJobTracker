@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace DegreeJobTracker.Controllers {
     public class AdminController : Controller {
@@ -120,7 +121,7 @@ namespace DegreeJobTracker.Controllers {
             // Degrees For Page
             ViewBag.Degrees = context.Degrees.OrderBy(d => d.DegreeId).Where(d => d.PersonId == query.MaxPersonId).ToList();
 
-            return View("Job", new Job());
+            return View("Job", new JobDegreePersonPost());
         } // end method
 
         // Posts
@@ -157,14 +158,54 @@ namespace DegreeJobTracker.Controllers {
 
         // Posts
         [HttpPost]
-        public IActionResult Job(Job job) {
+        public IActionResult Job(JobDegreePersonPost jdp) {
+            // Convert jdp To job
+            Job job = jdp;
+
+            // Insert Job into Database
             if (ModelState.IsValid) {
-                if (job.JobId == null)
+                if (job.JobId == null) {
                     context.Jobs.Add(job);
-                else
+                } else {
                     context.Jobs.Update(job);
+                } // end if
+
+                // Save Context
                 context.SaveChanges();
-                return RedirectToAction("Index", "Admin");
+
+                // Get Id of latest job
+                var job_id = context.Jobs
+                    .Where(j => j.PersonId == jdp.PersonId)
+                    .OrderByDescending(j => j.JobId)
+                    .Select(j => j.JobId)
+                    .FirstOrDefault();
+
+                // Create DegreeJobPerson Object
+                DegreeJobPerson djp = new DegreeJobPerson();
+                djp.DegreeId = jdp.DegreeId;    // DegreeId
+                djp.JobId = (int)job_id;        // JobId
+                djp.PersonId = jdp.PersonId;    // PersonId
+
+                // Database Connection String
+                string connectionString = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
+
+                // Sql Statement
+                string sql = "INSERT INTO degree_job_person (degree_id, job_id, person_id)" +
+                            $"VALUES({djp.DegreeId}, {djp.JobId}, {djp.PersonId});";
+                // Insert DegreeJobPerson Into Database
+                using (SqlConnection connection = new SqlConnection(connectionString)) {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create a SqlCommand object with the SQL statement and the SqlConnection
+                    using (SqlCommand command = new SqlCommand(sql, connection)) {
+                        // Execute the SQL command
+                        using (SqlDataReader reader = command.ExecuteReader()) {
+                        }
+                    }
+                }
+
+                    return RedirectToAction("Index", "Admin");
             } else {
                 ViewBag.Action = (job.JobId == null) ? "Add" : "Edit";
                 return View(job);
