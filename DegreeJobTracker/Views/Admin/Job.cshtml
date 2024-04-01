@@ -25,7 +25,7 @@
 
         <!-- Salary -->
         <div class=" col align-self-center mb-4">
-            <label asp-for="Salary" class="form-label">Salary</label>
+            <label asp-for="Salary" class="form-label">Salary <div class="ws-red-color d-inline">*</div></label>
             <input asp-for="Salary" class="form-control">
         </div>
 
@@ -46,6 +46,8 @@
                 <option value="None">None</option>
             </select>
         </div>
+
+        <input type="hidden" asp-for="JobId" value="@(Model.JobId != null ? Model.JobId : 0)" />
 
         <input type="hidden" asp-for="PersonId" value="@(ViewBag.PersonId != null ? ViewBag.PersonId : 0)" />
 
