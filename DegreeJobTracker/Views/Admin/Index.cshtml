@@ -16,9 +16,10 @@
         <div class="col-md-2">
             <select class="form-control" id="degreeType">
                 <option value="">Degree Type</option>
+                <option value="as">A.S.</option>
                 <option value="aas">A.A.S.</option>
-                <option value="bachelors">Bachelor's</option>
-                <option value="masters">Master's</option>
+                <option value="BS">Bachelor's</option>
+                <option value="MA">Master's</option>
                 <option value="phd">PhD</option>
             </select>
         </div>
@@ -38,7 +39,7 @@
 
     <!-- Person List Table -->
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered mb-5">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">First Name</th>
@@ -79,3 +80,42 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var nameSearchInput = document.querySelector("[placeholder='Search Name...']");
+        var degreeTypeSelect = document.getElementById('degreeType');
+        var concentrationSearchInput = document.querySelector("[placeholder='Search Degree Concentration...']");
+        var jobSearchInput = document.querySelector("[placeholder='Search Job...']");
+        var salarySearchInput = document.querySelector("[placeholder='Search Salary...']");
+
+        function filterTable() {
+            var nameValue = nameSearchInput.value.toLowerCase();
+            var degreeTypeValue = degreeTypeSelect.value.toLowerCase();
+            var concentrationValue = concentrationSearchInput.value.toLowerCase();
+            var jobValue = jobSearchInput.value.toLowerCase();
+            var salaryValue = salarySearchInput.value.toLowerCase().replace(/\$/g, '');
+
+            var tableRows = document.querySelectorAll('.table tbody tr');
+
+            tableRows.forEach(function (row) {
+                var nameMatches = row.cells[0].textContent.toLowerCase().indexOf(nameValue) > -1;
+                var degreeMatches = degreeTypeValue === '' || row.cells[1].textContent.toLowerCase().startsWith(degreeTypeValue);
+                var concentrationMatches = concentrationValue === '' || row.cells[1].textContent.toLowerCase().includes(concentrationValue);
+                var jobMatches = jobValue === '' || row.cells[2].textContent.toLowerCase().includes(jobValue);
+                var salaryMatches = salaryValue === '' || row.cells[3].textContent.replace(/[\$,]/g, '').includes(salaryValue);
+
+                if (nameMatches && degreeMatches && concentrationMatches && jobMatches && salaryMatches) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        nameSearchInput.addEventListener('keyup', filterTable);
+        degreeTypeSelect.addEventListener('change', filterTable);
+        concentrationSearchInput.addEventListener('keyup', filterTable);
+        jobSearchInput.addEventListener('keyup', filterTable);
+        salarySearchInput.addEventListener('keyup', filterTable);
+    });
+</script>
