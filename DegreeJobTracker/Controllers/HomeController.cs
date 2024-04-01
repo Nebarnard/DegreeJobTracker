@@ -4,14 +4,30 @@ using System.Diagnostics;
 
 namespace DegreeJobTracker.Controllers {
     public class HomeController : Controller {
-        private readonly ILogger<HomeController> _logger;
+        private DegreeJobTrackerContext context { get; set; }
 
-        public HomeController(ILogger<HomeController> logger) {
-            _logger = logger;
-        }
+        public HomeController(DegreeJobTrackerContext ctx) => context = ctx;
+
 
         public IActionResult Index() {
-            return View();
+            var query = context.Jobs
+            .Join(context.DegreeJobPeople,
+                  j => j.JobId,
+                  djp => djp.JobId,
+                  (j, djp) => new { Job = j, DegreeJobPerson = djp })
+            .Join(context.Degrees,
+                  jdjp => jdjp.DegreeJobPerson.DegreeId,
+                  d => d.DegreeId,
+                  (jdjp, d) => new HomeViewModel {
+                      Job = jdjp.Job.JobTitle,
+                      Business = jdjp.Job.BusinessName,
+                      Salary = jdjp.Job.Salary.ToString("C2"),
+                      Description = jdjp.Job.Description,
+                      Degree = d.Type + " " + d.Major
+                  })
+            .ToList();
+
+            return View(query);
         }
 
         public IActionResult Privacy() {
