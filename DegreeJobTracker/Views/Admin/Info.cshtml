@@ -33,15 +33,15 @@
                                 <td class="text-center">@degree.Type @degree.Major</td>
                                 <td class="text-center">@((degree.YearAwarded != null) ? degree.YearAwarded.ToString() : "N/A")</td>
                                 <td class="text-center">
-                                    <a asp-action="EditDegree" asp-route-id="@degree.PersonId" class="text-primary"><i class="fas fa-edit"></i></a>
-                                    <a asp-action="DeleteDegree" asp-route-id="@degree.PersonId" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    <a asp-action="Degree" asp-route-id="@degree.DegreeId" class="text-primary"><i class="fas fa-edit"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@degree.DegreeId" class="text-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
                 <div class="text-center">
-                    <a asp-action="AddDegree" asp-controller="Admin" class="btn btn-secondary">Add Degree</a>
+                    <a asp-action="Degree" asp-controller="Admin" class="btn btn-secondary">Add Degree</a>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                                 
                                 <td class="text-center">@job.Description</td>
                                 <td class="text-center">
-                                    <a asp-action="EditJob" asp-route-id="@job.PersonId" class="text-primary"><i class="fas fa-edit"></i></a>
+                                    <a asp-action="Job" asp-route-id="@job.PersonId" class="text-primary"><i class="fas fa-edit"></i></a>
                                     <a asp-action="DeleteJob" asp-route-id="@job.PersonId" class="text-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -83,7 +83,7 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    <a asp-action="AddJob" asp-controller="Admin" class="btn btn-secondary">Add Job</a>
+                    <a asp-action="Job" asp-controller="Admin" class="btn btn-secondary">Add Job</a>
                 </div>
             </div>
         </div>

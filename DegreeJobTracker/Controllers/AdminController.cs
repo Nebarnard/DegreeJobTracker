@@ -124,10 +124,100 @@ namespace DegreeJobTracker.Controllers {
             return View("Job", new JobDegreePersonPost());
         } // end method
 
+        // Edits
+        // Edit Person
+        [HttpGet("Admin/Person/{id}")]
+        public IActionResult Person(int id) {
+            ViewBag.Action = "Edit";
+
+            var person = context.People.Find(id);
+            return View(person);
+        } // end method
+
+        // Edit Degree View
+        [HttpGet("Admin/Degree/{id}")]
+        public IActionResult Degree(int id) {
+            // Action Name for page
+            ViewBag.Action = "Edit";
+
+            // Get person_id
+            var person_id = context.DegreeJobPeople
+                .Where(djp => djp.DegreeId == id)
+                .Select(djp => djp.PersonId)
+                .FirstOrDefault();
+
+            // Get Person name
+            var name = context.People
+                .Where(p => p.PersonId == person_id)
+                .Select(p => p.FirstName + " " + p.LastName)
+                .FirstOrDefault();
+
+            // Get Degree
+            var degree = context.Degrees.Find(id);
+
+            // Person name for page
+            ViewBag.Name = name;
+
+            // PersonID for page
+            ViewBag.PersonId = person_id;
+
+            return View("Degree", degree);
+        } // end method
+
+        // Edit Job View
+        [HttpGet("Admin/Job/{id}")]
+        public IActionResult Job(int id) {
+            // Action Name for page
+            ViewBag.Action = "Edit";
+
+            // Get person_id
+            var person_id = context.DegreeJobPeople
+                .Where(djp => djp.JobId == id)
+                .Select(djp => djp.PersonId)
+                .FirstOrDefault();
+
+            // Get Person name
+            var name = context.People
+                .Where(p => p.PersonId == person_id)
+                .Select(p => p.FirstName + " " + p.LastName)
+                .FirstOrDefault();
+
+            // Get degree_id
+            var degree_id = context.DegreeJobPeople
+                .Where(djp => djp.JobId == id)
+                .Select(djp => djp.DegreeId)
+                .FirstOrDefault();
+
+            // Get job
+            var job = context.Jobs.Find(id);
+
+            // Set Job Id
+            job.JobId = id;
+
+            // Person name for page
+            ViewBag.Name = name;
+
+            // PersonID for page
+            ViewBag.PersonId = person_id;
+
+            // Degrees For Page
+            ViewBag.Degrees = context.Degrees.OrderBy(d => d.DegreeId).Where(d => d.PersonId == person_id).ToList();
+
+            JobDegreePersonPost jdp = new JobDegreePersonPost(job);
+            jdp.DegreeId = degree_id;
+
+            return View("Job", jdp);
+        } // end method
+
         // Posts
         [HttpPost]
         public IActionResult Person(Person person) {
             if (ModelState.IsValid) {
+                if (person.PersonId != 0 && person.PersonId != null) {
+                    context.People.Update(person);
+                    context.SaveChanges();
+                    return RedirectToAction("Info","Admin", new { id = person.PersonId });
+                }
                 if (person.PersonId == 0) 
                     context.People.Add(person);
                 else
@@ -144,6 +234,11 @@ namespace DegreeJobTracker.Controllers {
         [HttpPost]
         public IActionResult Degree(Degree degree) {
             if (ModelState.IsValid) {
+                if (degree.DegreeId != 0 && degree.DegreeId != null) {
+                    context.Degrees.Update(degree);
+                    context.SaveChanges();
+                    return RedirectToAction("Info", "Admin", new { id = degree.PersonId });
+                }
                 if (degree.DegreeId == null)
                     context.Degrees.Add(degree);
                 else
@@ -164,6 +259,49 @@ namespace DegreeJobTracker.Controllers {
 
             // Insert Job into Database
             if (ModelState.IsValid) {
+                if (job.JobId != 0 && job.JobId != null) {
+                    context.Jobs.Update(job);
+                    context.SaveChanges();
+
+                    // Change jdp if necessary
+                    // Get old degree_id
+                    var degree_id = context.DegreeJobPeople
+                        .Where(djp => djp.JobId == job.JobId)
+                        .Select(djp => djp.DegreeId)
+                        .FirstOrDefault();
+
+                    // Check if equal
+                    if (jdp.DegreeId != degree_id) {
+                        // Create DegreeJobPerson Object
+                        DegreeJobPerson djpRow = new DegreeJobPerson();
+                        djpRow.DegreeId = jdp.DegreeId;    // DegreeId
+                        djpRow.JobId = (int)jdp.JobId;     // JobId
+                        djpRow.PersonId = jdp.PersonId;    // PersonId
+
+                        // Database Connection String
+                        string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
+
+                        // Sql Statement
+                        string sqlStr = "INSERT INTO degree_job_person (degree_id, job_id, person_id)" +
+                                    $"VALUES({djpRow.DegreeId}, {djpRow.JobId}, {djpRow.PersonId});";
+                        // Insert DegreeJobPerson Into Database
+                        using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                            // Open the connection
+                            connection.Open();
+
+                            // Create a SqlCommand object with the SQL statement and the SqlConnection
+                            using (SqlCommand command = new SqlCommand(sqlStr, connection)) {
+                                // Execute the SQL command
+                                using (SqlDataReader reader = command.ExecuteReader()) {
+                                }
+                            }
+                        }
+
+                        return RedirectToAction("Info", "Admin", new { id = djpRow.PersonId});
+                    } else {
+                        return RedirectToAction("Info", "Admin", new { id = jdp.PersonId });
+                    } // end if
+                }
                 if (job.JobId == null) {
                     context.Jobs.Add(job);
                 } else {
