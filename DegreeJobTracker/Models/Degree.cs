@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DegreeJobTracker.Models
 {
@@ -11,9 +12,11 @@ namespace DegreeJobTracker.Models
         }
 
         [ValidateNever]
-        public int DegreeId { get; set; }
+        public int? DegreeId { get; set; }
+        [Required(ErrorMessage = "Please enter a Degree Type (AS, AAS, BS, etc.).")]
         public string Type { get; set; } = null!;
         public string? Program { get; set; }
+        [Required(ErrorMessage = "Please enter a Degree Major (ex: Programming).")]
         public string Major { get; set; }
         public string? Concentration { get; set; }
         public short? YearAwarded { get; set; }

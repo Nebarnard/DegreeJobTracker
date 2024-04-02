@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace DegreeJobTracker.Controllers {
     public class AdminController : Controller {
@@ -61,7 +62,7 @@ namespace DegreeJobTracker.Controllers {
             return View(new ViewAllInfoViewModel(id, name, jobs, degrees));
         } // end method
 
-        // Add Views
+        #region Add Views
         // Add Person View
         [HttpGet]
         public IActionResult Person() {
@@ -123,8 +124,9 @@ namespace DegreeJobTracker.Controllers {
 
             return View("Job", new JobDegreePersonPost());
         } // end method
+        #endregion
 
-        // Edits
+        #region Edits
         // Edit Person
         [HttpGet("Admin/Person/{id}")]
         public IActionResult Person(int id) {
@@ -208,8 +210,10 @@ namespace DegreeJobTracker.Controllers {
 
             return View("Job", jdp);
         } // end method
+        #endregion
 
-        // Posts
+        #region Posts
+        // Post Person
         [HttpPost]
         public IActionResult Person(Person person) {
             if (ModelState.IsValid) {
@@ -230,7 +234,7 @@ namespace DegreeJobTracker.Controllers {
             }
         } // end method
 
-        // Posts
+        // Post Degree
         [HttpPost]
         public IActionResult Degree(Degree degree) {
             if (ModelState.IsValid) {
@@ -239,19 +243,23 @@ namespace DegreeJobTracker.Controllers {
                     context.SaveChanges();
                     return RedirectToAction("Info", "Admin", new { id = degree.PersonId });
                 }
-                if (degree.DegreeId == null)
+                if (degree.DegreeId == null || degree.DegreeId == 0) {
+                    degree.DegreeId = null;
                     context.Degrees.Add(degree);
+                }
                 else
                     context.Degrees.Update(degree);
                 context.SaveChanges();
                 return RedirectToAction("Job", "Admin");
             } else {
-                ViewBag.Action = (degree.DegreeId == null) ? "Add" : "Edit";
+                ViewBag.Action = (degree.DegreeId == null || degree.DegreeId == 0) ? "Add" : "Edit";
+                ViewBag.PersonId = degree.PersonId;
+                ViewBag.Name = context.People.Where(p => p.PersonId == degree.PersonId).Select(p => p.FirstName + ' ' + p.LastName).FirstOrDefault();
                 return View(degree);
             }
         } // end method
 
-        // Posts
+        // Post Job
         [HttpPost]
         public IActionResult Job(JobDegreePersonPost jdp) {
             // Convert jdp To job
@@ -302,7 +310,8 @@ namespace DegreeJobTracker.Controllers {
                         return RedirectToAction("Info", "Admin", new { id = jdp.PersonId });
                     } // end if
                 }
-                if (job.JobId == null) {
+                if (job.JobId == null || job.JobId == 0) {
+                    job.JobId = null;
                     context.Jobs.Add(job);
                 } else {
                     context.Jobs.Update(job);
@@ -345,10 +354,14 @@ namespace DegreeJobTracker.Controllers {
 
                     return RedirectToAction("Index", "Admin");
             } else {
-                ViewBag.Action = (job.JobId == null) ? "Add" : "Edit";
+                ViewBag.Action = (job.JobId == null || job.JobId == 0) ? "Add" : "Edit";
+                ViewBag.PersonId = jdp.PersonId;
+                ViewBag.Name = context.People.Where(p => p.PersonId == jdp.PersonId).Select(p => p.FirstName + ' ' + p.LastName).FirstOrDefault();
+                ViewBag.Degrees = context.Degrees.OrderBy(d => d.DegreeId).Where(d => d.PersonId == jdp.PersonId).ToList();
                 return View(job);
             }
         } // end method
+        #endregion
 
     } // end class
 } // end namespace
