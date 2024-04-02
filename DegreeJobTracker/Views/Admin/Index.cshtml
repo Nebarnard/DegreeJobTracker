@@ -33,7 +33,7 @@
             <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary" type="button">Add Person</button>
+            <button class="ws-blue-btn" type="button">Add Person</button>
         </div>
     </div>
 
@@ -42,7 +42,7 @@
         <table class="table table-bordered mb-5">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">First Name</th>
+                    <th scope="col">Name</th>
                     
                     <th scope="col">Highest Degree</th>
                     <th scope="col">Current Job</th>
@@ -61,14 +61,14 @@
                         <td>@person.Job</td>
                         <td>@person.Salary.ToString("C2")</td>
                         <td>
-                            <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="btn btn-info">View All Info</a>
+                            <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-btn">View All Info</a>
                         </td>
                         <td>
-                            <a asp-action="Person" asp-controller="Admin" asp-route-id="@person.PersonId" class="text-primary">
+                            <a asp-action="Person" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-color">
                                 <i class="fas fa-edit"></i>
                             </a>
                             &nbsp;
-                            <a asp-action="Delete" asp-controller="Admin" asp-route-id="@person.PersonId" class="text-danger">
+                            <a asp-action="Delete" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-red-color">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>

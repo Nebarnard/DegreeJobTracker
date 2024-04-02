@@ -49,12 +49,16 @@ body {
 
 .ws-blue-btn {
     background-color: #001641;
-    border: 3px solid #001641;
+    border: 2px solid #001641;
     color: white;
+    border-radius: 4px;
+    padding: 5px 9px;
+    
 }
 
-.ws-blue-btn:hover {
-    background-color: white;
-    border: 3px solid #001641;
-    color: ##001641;
-}
+    .ws-blue-btn:hover {
+        background-color: white;
+        border: 2px solid #001641;
+        color: #001641;
+        text-decoration: none
+    }
