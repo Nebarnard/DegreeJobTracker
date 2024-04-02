@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Runtime.Intrinsics.Arm;
@@ -415,6 +416,107 @@ namespace DegreeJobTracker.Controllers {
             return RedirectToAction("Index", "Admin");
         }
 
+        [HttpGet]
+        public IActionResult DeleteDegree(int id) {
+            var degree = context.Degrees.Find(id);
+            return View(degree);
+        }
+        [HttpPost]
+        public IActionResult DeleteDegree(Degree degree) {
+            // Get all entries in DJP with degree id
+            var query = context.DegreeJobPeople.Where(d => d.DegreeId == degree.DegreeId).ToList();
+
+            // Person Id
+            int person_id = 0;
+
+            // Delete Jobs
+            foreach (var item in query) {
+                // Delete DJP
+                // Create DegreeJobPerson Object
+                DegreeJobPerson djp = new DegreeJobPerson();
+                djp.DegreeId = item.DegreeId;    // DegreeId
+                djp.JobId = (int)item.JobId;     // JobId
+                djp.PersonId = item.PersonId;    // PersonId
+
+                // Set Person Id
+                person_id = djp.PersonId;
+
+                // Database Connection String
+                string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
+
+                // Sql Statement
+                string sqlStr = "DELETE FROM degree_job_person " +
+                                $"WHERE degree_id = {djp.DegreeId} and person_id = {djp.PersonId} and job_id = {djp.JobId};" +
+                                "DELETE FROM degree " +
+                                $"WHERE degree_id = {item.DegreeId};" +
+                                "DELETE FROM job " +
+                                $"WHERE job_id = {item.JobId};";
+
+                // Insert DegreeJobPerson Into Database
+                using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create a SqlCommand object with the SQL statement and the SqlConnection
+                    using (SqlCommand command = new SqlCommand(sqlStr, connection)) {
+                        // Execute the SQL command
+                        using (SqlDataReader reader = command.ExecuteReader()) {
+                        }
+                    }
+                }
+            } // end foreach
+            return RedirectToAction("Info", "Admin", new {id = person_id});
+        }
+
+        [HttpGet]
+        public IActionResult DeleteJob(int id) { 
+            var job = context.Jobs.Find(id);
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult DeleteJob(Job job) {
+            // Get all entries in DJP with job id
+            var query = context.DegreeJobPeople.Where(j => j.JobId == job.JobId).ToList();
+
+            // Person Id
+            int person_id = 0;
+
+            // Delete Jobs
+            foreach (var item in query) {
+                // Delete DJP
+                // Create DegreeJobPerson Object
+                DegreeJobPerson djp = new DegreeJobPerson();
+                djp.DegreeId = item.DegreeId;    // DegreeId
+                djp.JobId = (int)item.JobId;     // JobId
+                djp.PersonId = item.PersonId;    // PersonId
+
+                // Set Person Id
+                person_id = djp.PersonId;
+
+                // Database Connection String
+                string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
+
+                // Sql Statement
+                string sqlStr = "DELETE FROM degree_job_person " +
+                                $"WHERE degree_id = {djp.DegreeId} and person_id = {djp.PersonId} and job_id = {djp.JobId};" +
+                                "DELETE FROM job " +
+                                $"WHERE job_id = {item.JobId};";
+
+                // Insert DegreeJobPerson Into Database
+                using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create a SqlCommand object with the SQL statement and the SqlConnection
+                    using (SqlCommand command = new SqlCommand(sqlStr, connection)) {
+                        // Execute the SQL command
+                        using (SqlDataReader reader = command.ExecuteReader()) {
+                        }
+                    }
+                }
+            } // end foreach
+            return RedirectToAction("Info", "Admin", new {id = person_id});
+        }
         #endregion
 
     } // end class

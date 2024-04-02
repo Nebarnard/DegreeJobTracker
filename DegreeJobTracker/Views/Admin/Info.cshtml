@@ -34,7 +34,7 @@
                                 <td class="text-center">@((degree.YearAwarded != null) ? degree.YearAwarded.ToString() : "N/A")</td>
                                 <td class="text-center">
                                     <a asp-action="Degree" asp-route-id="@degree.DegreeId" class="text-primary"><i class="fas fa-edit"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@degree.DegreeId" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    <a asp-action="DeleteDegree" asp-route-id="@degree.DegreeId" class="text-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         }
@@ -75,8 +75,8 @@
                                 
                                 <td class="text-center">@job.Description</td>
                                 <td class="text-center">
-                                    <a asp-action="Job" asp-route-id="@job.PersonId" class="text-primary"><i class="fas fa-edit"></i></a>
-                                    <a asp-action="DeleteJob" asp-route-id="@job.PersonId" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    <a asp-action="Job" asp-route-id="@job.JobId" class="text-primary"><i class="fas fa-edit"></i></a>
+                                    <a asp-action="DeleteJob" asp-route-id="@job.JobId" class="text-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         }
