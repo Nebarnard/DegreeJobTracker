@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DegreeJobTracker.Models {
     public partial class JobDegreePersonPost : Job {
@@ -15,7 +16,7 @@ namespace DegreeJobTracker.Models {
             this.PersonId = job.PersonId;
         }
 
-
+        [Required(ErrorMessage ="Please Select a degree.")]
         public int DegreeId { get; set; }
     }
 }
