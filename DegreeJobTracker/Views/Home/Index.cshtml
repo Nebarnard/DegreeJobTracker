@@ -4,64 +4,99 @@
 }
 
 <div class="container-fluid mt-3">
-
-    <div class="row">
+    <h2 class="mb-3">Degree Job Tracker</h2>
+    <!-- Search Section -->
+    <div class="row mb-3">
         <div class="col-md-2">
-            <!-- Search Job Bar -->
-            <input type="text" class="form-control" placeholder="Search Job" aria-label="Search Job">
+            <input type="text" class="form-control" placeholder="Search Job..." aria-label="Search Job">
         </div>
         <div class="col-md-2">
-            <!-- Search Business Bar -->
-            <input type="text" class="form-control" placeholder="Search Business" aria-label="Search Business">
+            <input type="text" class="form-control" placeholder="Search Business..." aria-label="Search Business">
         </div>
         <div class="col-md-2">
-            <!-- Search Salary Bar -->
-            <input type="text" class="form-control" placeholder="Search Salary" aria-label="Search Salary">
+            <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
         </div>
         <div class="col-md-2">
-            <!-- Degree Type Dropdown -->
-            <!-- Assuming the same style for dropdown as provided -->
             <select class="form-control" id="degreeType">
-                <option value="bachelors">Bachelor's</option>
-                <option value="masters">Master's</option>
+                <option value="">Degree Type</option>
+                <option value="as">A.S.</option>
+                <option value="aas">A.A.S.</option>
+                <option value="BS">Bachelor's</option>
+                <option value="MA">Master's</option>
                 <option value="phd">PhD</option>
             </select>
         </div>
         <div class="col-md-2">
-            <!-- Search Degree Concentration Bar -->
-            <input type="text" class="form-control" placeholder="Search Degree Concentration" aria-label="Search Degree Concentration">
+            <input type="text" class="form-control" placeholder="Search Degree Concentration..." aria-label="Search Degree Concentration">
         </div>
         <div class="col-md-2">
-            <!-- Add Person Button, assuming this remains as per your new style -->
-            <button class="btn btn-primary" type="button">Search</button>
+            <button class="ws-blue-btn" type="button">Search</button> <!-- Changed to "Search" -->
         </div>
     </div>
 
-        <!-- Table -->
-    <div class="row mt-4">
-        <div class="col">
-            <table class="table table-hover">
-                <thead>
+    <!-- Table Section -->
+    <div class="table-responsive">
+        <table class="table table-bordered mb-5">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Job</th>
+                    <th scope="col">Business</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Degree</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var job in Model)
+                {
                     <tr>
-                        <th>Job</th>
-                        <th>Business</th>
-                        <th>Salary</th>
-                        <th>Description</th>
-                        <th>Degree</th>
+                        <td>@job.Job</td>
+                        <td>@job.Business</td>
+                        <td>@job.Salary.ToString("C2")</td>
+                        <td>@job.Description</td>
+                        <td>@job.Degree</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach(var job in Model) {
-                        <tr>
-                            <td>@job.Job</td>
-                            <td>@job.Business</td>
-                            <td>@job.Salary</td>
-                            <td>@job.Description</td>
-                            <td>@job.Degree</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var jobSearchInput = document.querySelector("[placeholder='Search Job...']");
+        var businessSearchInput = document.querySelector("[placeholder='Search Business...']");
+        var salarySearchInput = document.querySelector("[placeholder='Search Salary...']");
+        var degreeTypeSelect = document.getElementById('degreeType');
+        var concentrationSearchInput = document.querySelector("[placeholder='Search Degree Concentration...']");
+
+        function filterTable() {
+            var jobValue = jobSearchInput.value.toLowerCase();
+            var businessValue = businessSearchInput.value.toLowerCase();
+            var salaryValue = salarySearchInput.value.toLowerCase().replace(/\$/g, '');
+            var degreeTypeValue = degreeTypeSelect.value.toLowerCase();
+            var concentrationValue = concentrationSearchInput.value.toLowerCase();
+
+            var tableRows = document.querySelectorAll('.table tbody tr');
+
+            tableRows.forEach(function (row) {
+                var jobMatches = jobValue === '' || row.cells[0].textContent.toLowerCase().includes(jobValue);
+                var businessMatches = businessValue === '' || row.cells[1].textContent.toLowerCase().includes(businessValue);
+                var salaryMatches = salaryValue === '' || row.cells[2].textContent.replace(/[\$,]/g, '').includes(salaryValue);
+                var degreeMatches = degreeTypeValue === '' || row.cells[4].textContent.toLowerCase().includes(degreeTypeValue);
+                var concentrationMatches = concentrationValue === '' || row.cells[4].textContent.toLowerCase().includes(concentrationValue);
+
+                if (jobMatches && businessMatches && salaryMatches && degreeMatches && concentrationMatches) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        jobSearchInput.addEventListener('keyup', filterTable);
+        businessSearchInput.addEventListener('keyup', filterTable);
+        salarySearchInput.addEventListener('keyup', filterTable);
+        degreeTypeSelect.addEventListener('change', filterTable);
+        concentrationSearchInput.addEventListener('keyup', filterTable);
+    });
+</script>
