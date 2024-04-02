@@ -1,0 +1,19 @@
+﻿@model Job
+@{
+    ViewData["Title"] = $"Job Tracker - Delete {ViewBag.Job}";
+}
+<div class="row justify-content-center">
+    <div class="col-md-4 row">
+        <h1 class="ws-blue-color text-center mt-5">Confirm Deletion</h1>
+        <h1 class="ws-blue-color text-center mb-5">Delete Job: @ViewBag.Job</h1>
+
+        <form asp-action="DeleteJob" method="post">
+            <input type="hidden" asp-for="JobId" />
+
+            <div class="col row align-self-center">
+                <a asp-controller="Job" asp-action="Index" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
+                <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
