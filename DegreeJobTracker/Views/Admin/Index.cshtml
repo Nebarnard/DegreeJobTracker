@@ -33,7 +33,7 @@
             <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
         </div>
         <div class="col-md-2">
-            <button class="ws-blue-btn" type="button">Add Person</button>
+             <a asp-action="Person" asp-controller="Admin" class="ws-blue-btn" type="button">Add Person</a>
         </div>
     </div>
 
@@ -64,7 +64,7 @@
                             <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-btn">View All Info</a>
                         </td>
                         <td>
-                            <a asp-action="Person" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-color">
+                            <a asp-action="Person" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-color text-decoration-none">
                                 <i class="fas fa-edit"></i>
                             </a>
                             &nbsp;

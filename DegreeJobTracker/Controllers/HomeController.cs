@@ -21,7 +21,7 @@ namespace DegreeJobTracker.Controllers {
                   (jdjp, d) => new HomeViewModel {
                       Job = jdjp.Job.JobTitle,
                       Business = jdjp.Job.BusinessName,
-                      Salary = jdjp.Job.Salary.ToString("C2"),
+                      Salary = jdjp.Job.Salary,
                       Description = jdjp.Job.Description,
                       Degree = d.Type + " " + d.Major
                   })
