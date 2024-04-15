@@ -1,14 +1,26 @@
 ﻿@{
-    // Get Name of controller
+    // Get the name of the controller from the route data
     string controllerName = ViewContext.RouteData.Values["controller"] as string;
 
-    // Set Default Layout
+    // Set default layout
     string layout = "_Layout";
 
-    // Set layout based on controller name
-    if (controllerName == "Admin") {
+    // Check if the user is logged in
+    if (Context.Session.GetString("LoggedIn") == "true")
+    {
+        // Set admin layout if logged in
         layout = "_AdminLayout";
-    } // end if
+    }
+    else
+    {
+        // Redirect to login if not logged in and not on the HomeController
+        if (controllerName != "Home")
+        {
+            // This script issues a client-side redirect to the login page
+            <meta http-equiv="refresh" content="0;url=@Url.Action("Login","Home")">
+        }
+    }
 
+    // Apply the determined layout
     Layout = layout;
 }

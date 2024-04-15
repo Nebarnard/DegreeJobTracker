@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserCredential
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -10,22 +11,24 @@
                     <div class="text-center mb-4">
                         <h3>Login to Manage the Database</h3>
                     </div>
-                    <!-- Username Input Box -->
-                    <div class="form-group">
-                        <input type="text" class="form-control mb-lg-3" id="username" placeholder="username">
-                    </div>
-                    <!-- Password Input Box -->
-                    <div class="form-group">
-                        <input type="password" class="form-control mb-lg-3" id="password" placeholder="password">
-                    </div>
-                    <!-- Login Button -->
-                    <div class="text-center">
-                        <a asp-action="Index" asp-controller="Admin" class="ws-blue-btn">Login</a>
-                    </div>
-                    <!-- Click here to go back -->
-                    <div class="text-center mt-3">
-                        <a asp-action="Index" asp-controller="Home" class="ws-blue-btn">Click here to go back</a>
-                    </div>
+                    <form asp-action="Login" method="post">
+                        <!-- Username Input Box -->
+                        <div class="form-group">
+                            <input type="text" asp-for="Username" class="form-control mb-lg-3" id="username" placeholder="username">
+                        </div>
+                        <!-- Password Input Box -->
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" class="form-control mb-lg-3" id="password" placeholder="password">
+                        </div>
+                        <!-- Login Button -->
+                        <div class="text-center">
+                            <button type="submit" class="ws-blue-btn">Login</button>
+                        </div>
+                        <!-- Click here to go back -->
+                        <div class="text-center mt-3">
+                            <a asp-action="Index" asp-controller="Home" class="ws-blue-btn">Click here to go back</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

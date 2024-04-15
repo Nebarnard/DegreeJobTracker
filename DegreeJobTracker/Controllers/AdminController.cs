@@ -64,6 +64,13 @@ namespace DegreeJobTracker.Controllers {
             return View(new ViewAllInfoViewModel(id, name, jobs, degrees));
         } // end method
 
+        // Logout
+        public IActionResult Logout() {
+            // Set Session
+            HttpContext.Session.SetString("LoggedIn", "false");
+            return RedirectToAction("Index", "Home");
+        } // end method
+
         #region Add Views
         // Add Person View
         [HttpGet]

@@ -1,5 +1,6 @@
 ﻿using DegreeJobTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace DegreeJobTracker.Controllers {
@@ -34,16 +35,31 @@ namespace DegreeJobTracker.Controllers {
             return View();
         }
 
-        public IActionResult Login()
-        {
+        public IActionResult Login() {
             // Your login logic or just return the view
             return View();
         }
 
-        public IActionResult Admin()
-        {
-            // Your admin logic or just return the view
+        [HttpPost]
+        public IActionResult Login(UserCredential uc) {
+            // Get password where username is from database
+            var password = context.UserCredentials
+                .Where(u => u.Username == uc.Username)
+                .Select(u => u.Password)
+                .FirstOrDefault();
+
+            // Hash Password
+            string user_password = PasswordHasher.HashPassword(uc.Password);
+
+            // Take hash of Credential Passowrd and Compare to Database
+            if (user_password == password) {
+                // Set Session
+                HttpContext.Session.SetString("LoggedIn", "true");
+
+                return RedirectToAction("Index", "Admin");
+            }
             return View();
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
