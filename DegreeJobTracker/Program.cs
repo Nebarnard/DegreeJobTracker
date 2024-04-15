@@ -6,6 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add services to the container.
+builder.Services.AddDistributedMemoryCache(); // Stores sessions in-memory
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout
+    options.Cookie.HttpOnly = true; // Security feature to prevent client-side script access to the cookie
+    options.Cookie.IsEssential = true; // Mark the session cookie as essential for the application
+});
+
 // Add EF Core DI
 builder.Services.AddDbContext<DegreeJobTrackerContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DegreeJobTrackerContext")));
@@ -33,5 +41,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Admin}/{action=Index}/{id?}");
+
+app.UseSession();
 
 app.Run();
