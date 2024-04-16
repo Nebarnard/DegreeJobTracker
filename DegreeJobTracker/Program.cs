@@ -14,6 +14,11 @@ builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true; // Mark the session cookie as essential for the application
 });
 
+builder.Services.AddRouting(options => {
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+});
+
 // Add EF Core DI
 builder.Services.AddDbContext<DegreeJobTrackerContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DegreeJobTrackerContext")));
