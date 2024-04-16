@@ -10,7 +10,7 @@ There is no way to change the user credentials within the program itself. To do 
     INSERT INTO user_credential 
         (username, password)
         VALUES
-        ('YourUserNameHere', 'YourPasswordHashHere')
+        ('YourUsernameHere', 'YourPasswordHashHere')
     ;
     ```
 4. (Optional) Delete the previous password by running the following sql, replacing  ***YourOldUsernameHere*** with the credentials you want to replace:
