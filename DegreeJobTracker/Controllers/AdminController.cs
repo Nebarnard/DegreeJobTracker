@@ -71,6 +71,50 @@ namespace DegreeJobTracker.Controllers {
             return RedirectToAction("Index", "Home");
         } // end method
 
+
+        // Cancel Button for adding person
+        public IActionResult Cancel(int id) {
+            // Database Connection String
+            string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
+
+            // Switch based on what page on
+            switch (id) {
+
+                // Add Person
+                case 0:
+                    return RedirectToAction("Index", "Admin");
+
+                // Add Degree
+                case 1:
+                    // Get Latest Person
+                    var query = context.People.OrderByDescending(p => p.PersonId).FirstOrDefault();
+
+                    // Remove From Database
+                    context.Remove(query);
+                    context.SaveChanges();
+
+                    return RedirectToAction("Index", "Admin");
+
+                // Add Job
+                case 2:
+                    // Get Latest Person
+                    var personQuery = context.People.OrderByDescending(p => p.PersonId).FirstOrDefault();
+
+                    // Get Latest Degree
+                    var degreeQuery = context.Degrees.OrderByDescending(d => d.DegreeId).FirstOrDefault();
+
+                    // Remove From Database
+                    context.Remove(personQuery);
+                    context.Remove(degreeQuery);
+                    context.SaveChanges();
+
+                    return RedirectToAction("Index", "Admin");
+
+                default:
+                    return RedirectToAction("Index", "Admin");
+            } // end switch
+        } // end method
+
         #region Add Views
         // Add Person View
         [HttpGet]
