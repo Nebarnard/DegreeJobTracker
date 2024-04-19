@@ -11,6 +11,13 @@
                     <div class="text-center mb-4">
                         <h3>Login to Manage the Database</h3>
                     </div>
+                    @{
+                    if (ViewData["Error"] != string.Empty) {
+                        <div class="text-center mb-4">
+                            <p class="ws-red-color">@ViewData["Error"]</p>
+                        </div>
+                    }
+                    }
                     <form asp-action="Login" method="post">
                         <!-- Username Input Box -->
                         <div class="form-group">

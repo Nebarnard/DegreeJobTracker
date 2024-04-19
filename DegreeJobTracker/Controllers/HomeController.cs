@@ -58,6 +58,7 @@ namespace DegreeJobTracker.Controllers {
 
                 return RedirectToAction("Index", "Admin");
             }
+            ViewData["Error"] = "* Incorrect Username or Password.";
             return View();
             
         }
