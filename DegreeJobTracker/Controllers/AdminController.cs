@@ -10,9 +10,18 @@ using System.Runtime.Intrinsics.Arm;
 namespace DegreeJobTracker.Controllers {
     public class AdminController : Controller {
 
+        // Allow For Connection String Access for places that dont use EFCore
+        private readonly string _connectionString;
+
         private DegreeJobTrackerContext context { get; set; }
 
-        public AdminController(DegreeJobTrackerContext ctx) => context = ctx;
+        public AdminController(DegreeJobTrackerContext ctx, IConfiguration configuration) {
+            // Set DbContext
+            context = ctx;
+
+            // Set ConnectionString
+            _connectionString = configuration.GetConnectionString("DegreeJobTrackerContext");
+        } // end method
 
         // Admin Home
         public IActionResult Index() {
@@ -74,9 +83,6 @@ namespace DegreeJobTracker.Controllers {
 
         // Cancel Button for adding person
         public IActionResult Cancel(int id) {
-            // Database Connection String
-            string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
-
             // Switch based on what page on
             switch (id) {
 
@@ -339,14 +345,11 @@ namespace DegreeJobTracker.Controllers {
                         djpRow.JobId = (int)jdp.JobId;     // JobId
                         djpRow.PersonId = jdp.PersonId;    // PersonId
 
-                        // Database Connection String
-                        string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
-
                         // Sql Statement
                         string sqlStr = "INSERT INTO degree_job_person (degree_id, job_id, person_id)" +
                                     $"VALUES({djpRow.DegreeId}, {djpRow.JobId}, {djpRow.PersonId});";
                         // Insert DegreeJobPerson Into Database
-                        using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                        using (SqlConnection connection = new SqlConnection(_connectionString)) {
                             // Open the connection
                             connection.Open();
 
@@ -386,14 +389,11 @@ namespace DegreeJobTracker.Controllers {
                 djp.JobId = (int)job_id;        // JobId
                 djp.PersonId = jdp.PersonId;    // PersonId
 
-                // Database Connection String
-                string connectionString = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
-
                 // Sql Statement
                 string sql = "INSERT INTO degree_job_person (degree_id, job_id, person_id)" +
                             $"VALUES({djp.DegreeId}, {djp.JobId}, {djp.PersonId});";
                 // Insert DegreeJobPerson Into Database
-                using (SqlConnection connection = new SqlConnection(connectionString)) {
+                using (SqlConnection connection = new SqlConnection(_connectionString)) {
                     // Open the connection
                     connection.Open();
 
@@ -438,9 +438,6 @@ namespace DegreeJobTracker.Controllers {
                 djp.JobId = (int)item.JobId;     // JobId
                 djp.PersonId = item.PersonId;    // PersonId
 
-                // Database Connection String
-                string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
-
                 // Sql Statement
                 string sqlStr = "DELETE FROM degree_job_person " +
                                 $"WHERE degree_id = {djp.DegreeId} and person_id = {djp.PersonId} and job_id = {djp.JobId};" +
@@ -452,7 +449,7 @@ namespace DegreeJobTracker.Controllers {
                                 $"WHERE person_id = {item.PersonId};";
 
                 // Insert DegreeJobPerson Into Database
-                using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                using (SqlConnection connection = new SqlConnection(_connectionString)) {
                     // Open the connection
                     connection.Open();
 
@@ -492,8 +489,6 @@ namespace DegreeJobTracker.Controllers {
                 // Set Person Id
                 person_id = djp.PersonId;
 
-                // Database Connection String
-                string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
 
                 // Sql Statement
                 string sqlStr = "DELETE FROM degree_job_person " +
@@ -504,7 +499,7 @@ namespace DegreeJobTracker.Controllers {
                                 $"WHERE job_id = {item.JobId};";
 
                 // Insert DegreeJobPerson Into Database
-                using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                using (SqlConnection connection = new SqlConnection(_connectionString)) {
                     // Open the connection
                     connection.Open();
 
@@ -544,8 +539,6 @@ namespace DegreeJobTracker.Controllers {
                 // Set Person Id
                 person_id = djp.PersonId;
 
-                // Database Connection String
-                string connectionStr = "Server=(localdb)\\mssqllocaldb;Database=DegreeJobTracker;";
 
                 // Sql Statement
                 string sqlStr = "DELETE FROM degree_job_person " +
@@ -554,7 +547,7 @@ namespace DegreeJobTracker.Controllers {
                                 $"WHERE job_id = {item.JobId};";
 
                 // Insert DegreeJobPerson Into Database
-                using (SqlConnection connection = new SqlConnection(connectionStr)) {
+                using (SqlConnection connection = new SqlConnection(_connectionString)) {
                     // Open the connection
                     connection.Open();
 
