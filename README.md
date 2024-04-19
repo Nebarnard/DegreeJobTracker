@@ -9,7 +9,7 @@ To use this application you must have a Microsoft SQL Server database set up. To
 It is recommended to change the username and password for the admin view login immediately. The default credentials are "admin" for the username and "password" for the password. This is not secure at all. The credentials can be changed from within the application by logging in as the admin and clicking "Account". From there you can change the credentials via the links on the page.
 
 ### Editing/Deleting the Admin View Login Credentials
-If a user forgets their credentials you can fix this by following the steps below:
+If a user forgets their credentials or you wish to add a user you can fix this by following the steps below:
 1. Decide on what you want the username and password to be. (eg. Username: admin, Password: password).
 2. Run the `Password Hasher` application and enter the password you wish to use.
 3. Run the following sql on the database, replacing ***YourUsernameHere*** and ***YourPasswordHashHere*** with your chosen username and the password hash:
