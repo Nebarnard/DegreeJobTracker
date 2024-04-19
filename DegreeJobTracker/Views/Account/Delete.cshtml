@@ -1,0 +1,24 @@
+﻿@model Person
+@{
+    ViewData["Title"] = $"Degree Job Tracker - Delete {Model.FirstName} {Model.LastName}";
+}
+<!-- Alignment Stuff -->
+<div class="row justify-content-center">
+<div class="col-md-4 row"> 
+    <!-- Title Bar -->
+    <h1 class="ws-blue-color text-center mt-5">Confirm Deletion</h1>
+    <h1 class="ws-blue-color text-center mb-5">Delete @Model.FirstName @Model.LastName?</h1>
+
+    <!-- Form to Post-->
+    <form asp-action="DeletePerson" method="post">
+
+        <input type="hidden" asp-for="PersonId" />
+
+        <!-- Buttons -->
+        <div class="col row align-self-center">
+            <a asp-controller="Admin" asp-action="Index" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
+            <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">Delete</button>
+        </div>
+    </form>
+</div>
+</div>
