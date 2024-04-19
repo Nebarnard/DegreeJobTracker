@@ -2,12 +2,8 @@
 @{
     ViewData["Title"] = "Admin";
 }
-
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-
 <div class="container-fluid mt-3">
-    <h2 class="mb-3">Degree Job Tracker</h2>
+    <h2 class="mb-3">Person List</h2>
     <!-- Search and Add Person Section -->
     <div class="row mb-3">
         <div class="col-md-2">
@@ -32,7 +28,7 @@
         <div class="col-md-2">
             <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12 text-center">
              <a asp-action="Person" asp-controller="Admin" class="ws-blue-btn" type="button">Add Person</a>
         </div>
     </div>
@@ -78,8 +74,6 @@
         </table>
     </div>
 </div>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var nameSearchInput = document.querySelector("[placeholder='Search Name...']");
