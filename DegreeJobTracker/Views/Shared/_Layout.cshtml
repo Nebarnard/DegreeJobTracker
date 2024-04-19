@@ -13,13 +13,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
-<body style="position: relative; min-height: 100vh;">
+<body style="position: relative; min-height: 100vh;" class="mb-0">
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <div class="logo">
-                    <!-- Replace 'logo-placeholder.png' with the actual path to your logo -->
                     <img src="~/Images/bestlogo.png" class="img" alt="Degree Job Tracker Logo" />
                 </div>
                 <div class="navbar-brand mx-auto">DegreeJobTracker</div>
@@ -30,16 +29,19 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    <!-- Main-->
+    <div class="container pb-3">
+        <main role="main" class="pb-5">
             @RenderBody()
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="border-top footer text-muted" style="position: absolute; bottom: 0; width: 100%;">
+    <footer class="footer ws-blue-bg mb-0 ws-red-border-y p-3" style="position: absolute; bottom: 0; width: 100%; border-width: 5px;">
         <div class="container">
-            &copy; 2024 - DegreeJobTracker - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row text-white">
+                <p class="col text-center">&copy; @DateTime.Now.Year - DegreeJobTracker</p>
+            </div>
         </div>
     </footer>
 </body>

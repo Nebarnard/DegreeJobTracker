@@ -47,7 +47,7 @@
                     <th scope="col">Highest Degree</th>
                     <th scope="col">Current Job</th>
                     <th scope="col">Current Salary</th>
-                    <th scope="col">View All Info</th>
+                    <th scope="col" class="text-nowrap">View All Info</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -61,7 +61,7 @@
                         <td>@person.Job</td>
                         <td>@person.Salary.ToString("C2")</td>
                         <td>
-                            <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-btn">View All Info</a>
+                            <a asp-action="Info" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-btn text-nowrap">View All Info</a>
                         </td>
                         <td>
                             <a asp-action="Person" asp-controller="Admin" asp-route-id="@person.PersonId" class="ws-blue-color text-decoration-none">

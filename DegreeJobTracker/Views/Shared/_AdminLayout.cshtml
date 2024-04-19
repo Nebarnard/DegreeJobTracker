@@ -14,37 +14,44 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </head>
-    <body style="position: relative; min-height: 100vh;">
-    <!-- Add styles here -->
-    <!-- Change here -->
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <div class="logo">
-                    <!-- Replace 'logo-placeholder.png' with the actual path to your logo -->
-                    <img src="~/Images/bestlogo.png" class="img" alt="Degree Job Tracker Logo" />
-                </div>
-                <div class="navbar-brand mx-auto">DegreeJobTracker</div>
+    <body style="position: relative; min-height: 100vh;" class="mb-0">
 
-                <!-- Additional Links -->
-                <div class="text-center">
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-link" style="text-decoration:none; color:black">Job List</a>
-                    <a asp-action="Index" asp-controller="Admin" class="btn btn-link" style="text-decoration:none; color:black">Person List</a>
-                    <a asp-action="Person" asp-controller="Admin" class="btn btn-link" style="text-decoration:none; color:black">Add Person</a>
+        <!-- Nav -->
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <div class="logo">
+                        <img src="~/Images/bestlogo.png" class="img" alt="Degree Job Tracker Logo" />
+                    </div>
+                    <div class="navbar-brand mx-auto">DegreeJobTracker</div>
+
+                    <!-- Additional Links -->
+                    <div class="text-center">
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-link" style="text-decoration:none; color:black">Job List</a>
+                        <a asp-action="Index" asp-controller="Admin" class="btn btn-link" style="text-decoration:none; color:black">Person List</a>
+                        <a asp-action="Person" asp-controller="Admin" class="btn btn-link" style="text-decoration:none; color:black">Add Person</a>
+                    </div>
+                    <div class="login-button">
+                        <a asp-action="Logout" asp-controller="Admin" class="ws-blue-btn">Logout</a>
+                    </div>
                 </div>
-                <div class="login-button">
-                    <a asp-action="Logout" asp-controller="Admin" class="ws-blue-btn">Logout</a>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <div class="container pb-3">
+            <main role="main" class="pb-5">
+                @RenderBody()
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer ws-blue-bg mb-0 ws-red-border-y p-3" style="position: absolute; bottom: 0; width: 100%; border-width: 5px;">
+            <div class="container">
+                <div class="row text-white">
+                    <p class="col text-center">&copy; @DateTime.Now.Year - DegreeJobTracker</p>
                 </div>
             </div>
-        </nav>
-    </header>
-    <main>
-        @RenderBody()
-    </main>
-    <footer class="border-top footer text-muted" style="position: absolute; bottom: 0; width: 100%;">
-        <div class="container">
-            &copy; 2024 - DegreeJobTracker - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+        </footer>
     </body>
 </html>
