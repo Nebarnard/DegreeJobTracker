@@ -10,16 +10,13 @@
     {
         // Set admin layout if logged in
         layout = "_AdminLayout";
-    }
-    else
-    {
+    } else {
         // Redirect to login if not logged in and not on the HomeController
-        if (controllerName != "Home")
-        {
-            // This script issues a client-side redirect to the login page
-            <meta http-equiv="refresh" content="0;url=@Url.Action("Login","Home")">
-        }
-    }
+        if (controllerName != "Home") {
+            Layout = "Redirect";
+            return;
+        } // end if
+    } // end else
 
     // Apply the determined layout
     Layout = layout;
