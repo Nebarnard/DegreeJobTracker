@@ -1,16 +1,6 @@
--- DROP DATABASE
-DROP DATABASE IF EXISTS DegreeJobTracker;
-
--- CREATE DATABASE
-CREATE DATABASE DegreeJobTracker;
-
--- USING DATABASE
-GO
-USE DegreeJobTracker;
-
 -- DROP all TABLES
-DROP TABLE IF EXISTS [user];
-DROP TABLE IF EXISTS degree_job;
+DROP TABLE IF EXISTS [user_credential];
+DROP TABLE IF EXISTS degree_job_person;
 DROP TABLE IF EXISTS degree;
 DROP TABLE IF EXISTS job;
 DROP TABLE IF EXISTS person;
@@ -102,6 +92,13 @@ ALTER TABLE degree_job_person
 	ADD CONSTRAINT fk_degree_job_person_person
 	FOREIGN KEY (person_id)
 	REFERENCES person(person_id)
+;
+
+-- Default User credentials
+INSERT INTO user_credential 
+    (username, password)
+    VALUES
+    ('admin', '0c9ec37f13454b6ef9c1c93f88814906e09a3b2dd9ec83eb8e39588216590aca')
 ;
 
 -- SEED DATA
