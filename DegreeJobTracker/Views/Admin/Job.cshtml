@@ -38,7 +38,7 @@
 
         <!-- Degree Dropdown -->
         <div class=" col align-self-center mb-4">
-            <label asp-for="DegreeId" class="form-label">Select Degree</label>
+             <label asp-for="DegreeId" class="form-label">Select Degree <div class="ws-red-color d-inline">*</div></label>
             <select asp-for="DegreeId" class="form-select">
                 <option value="">select a degree</option>
                 @foreach(Degree d in ViewBag.Degrees) {
@@ -54,8 +54,8 @@
 
         <!-- Buttons -->
         <div class="col row align-self-center">
-            <a asp-controller="Admin" asp-action="Cancel" asp-route-id="2" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
-            <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">@ViewBag.Action Job</button>
+            <a asp-controller="Admin" asp-action="Cancel" class="text-nowrap text-center ws-red-bg col mx-3 ws-red-btn">Cancel</a>
+            <button type="submit" class="text-nowrap ws-blue-bg col mx-3 ws-blue-btn">@ViewBag.Action Job</button>
         </div>
     </form>
 </div>
