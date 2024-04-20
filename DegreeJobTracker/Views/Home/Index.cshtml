@@ -6,28 +6,38 @@
 <div class="container-fluid mt-3">
     <h2 class="mb-3">Job List</h2>
     <!-- Search Section -->
-    <div class="row mb-3">
-        <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="Search Job..." aria-label="Search Job">
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="Search Business..." aria-label="Search Business">
-        </div>
-        <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="Search Salary..." aria-label="Search Salary">
-        </div>
-        <div class="col-md-2">
-            <select class="form-control form-select" id="degreeType">
-                <option value="">Degree Type</option>
-                <option value="as">A.S.</option>
-                <option value="aas">A.A.S.</option>
-                <option value="BS">Bachelor's</option>
-                <option value="MA">Master's</option>
-                <option value="phd">PhD</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="Search Degree Concentration..." aria-label="Search Degree Concentration">
+    <div class="container-fluid sticky-top">
+        <div class="row mb-3 justify-content-around bg-light py-2" id="navbar" ">
+            <div class="offset-11 col-7">
+                <!-- Filter icon (visible on smaller viewports) -->
+                <button id="filter-icon" class="btn btn-link text-end d-block d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterOptions" aria-expanded="false" aria-controls="filterOptions">
+                    <i class="fas fa-bars"></i> Filter
+                </button>
+            </div>
+            <div class="collapse d-md-flex row row-cols-md-auto justify-content-center" id="filterOptions">
+                <div class="col-md-2">
+                    <input type="text" class="form-control mb-2 mr-md-1 col-md-2" placeholder="Search Job..." aria-label="Search Job">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control mb-2 mr-md-1 col-md-2" placeholder="Search Business..." aria-label="Search Business">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control mb-2 mr-md-1 col-md-2" placeholder="Search Salary..." aria-label="Search Salary">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control form-select mb-2 mr-md-1 col-md-2" id="degreeType">
+                        <option value="">Degree Type</option>
+                        <option value="as">A.S.</option>
+                        <option value="aas">A.A.S.</option>
+                        <option value="BS">Bachelor's</option>
+                        <option value="MA">Master's</option>
+                        <option value="phd">PhD</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control mb-2 mr-md-1 col-md-3" placeholder="Search Degree Concentration..." aria-label="Search Degree Concentration">
+                </div>
+            </div>
         </div>
     </div>
 
