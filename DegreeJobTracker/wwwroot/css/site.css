@@ -55,6 +55,7 @@ body {
     background-color: white;
     border: 3px solid #E91540;
     color: #E91540;
+    text-decoration: none;
 }
 
 .ws-blue-btn {
