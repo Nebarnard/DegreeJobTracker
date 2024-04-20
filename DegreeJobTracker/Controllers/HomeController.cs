@@ -55,6 +55,7 @@ namespace DegreeJobTracker.Controllers {
             if (user_password == password) {
                 // Set Session
                 HttpContext.Session.SetString("LoggedIn", "true");
+                HttpContext.Session.SetString("Username", uc.Username);
 
                 return RedirectToAction("Index", "Admin");
             }
