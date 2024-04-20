@@ -1,47 +1,30 @@
-﻿@model Person
-@{
-    ViewData["Title"] = $"Degree Job Tracker - {ViewBag.Action} Person";
-}
+﻿@model UsernameViewModel
 <!-- Alignment Stuff -->
 <div class="row justify-content-center">
 <div class="col-md-4 row"> 
     <!-- Title Bar -->
-    <h1 class="ws-blue-color text-center my-5">@ViewBag.Action Person</h1>
+    <h1 class="ws-blue-color text-center my-5">Change Username</h1>
 
     <!-- Form to Post-->
-    <form asp-action="Person" method="post">
-        <div asp-validation-summary="All" class="ws-red-color"></div>
+    <form asp-action="Username" method="post">
+        @{
+            if ((string)ViewData["Error"] != string.Empty) {
+                <div class="text-center mb-4">
+                    <p class="ws-red-color">@ViewData["Error"]</p>
+                </div>
+            }
+        }
 
-        <!-- First Name -->
+        <!-- Username -->
         <div class="col align-self-center mb-3">
-            <label asp-for="FirstName" class="form-label">First Name <div class="ws-red-color d-inline">*</div></label>
-            <input asp-for="FirstName" class="form-control">
+            <label asp-for="Username" class="form-label">Username:</label>
+            <input asp-for="Username" class="form-control">
         </div>
-
-        <!-- Last Name -->
-        <div class=" col align-self-center mb-4">
-            <label asp-for="LastName" class="form-label">Last Name <div class="ws-red-color d-inline">*</div></label>
-            <input asp-for="LastName" class="form-control">
-        </div>
-
-        <!-- Email  -->
-        <div class=" col align-self-center mb-4">
-            <label asp-for="Email" class="form-label">Email</label>
-            <input asp-for="Email" class="form-control">
-        </div>
-
-        <!-- Phone -->
-        <div class=" col align-self-center mb-4">
-            <label asp-for="Phone" class="form-label">Phone</label>
-            <input asp-for="Phone" class=" form-control">
-        </div>
-
-        <input type="hidden" asp-for="PersonId" />
 
         <!-- Buttons -->
         <div class="col row align-self-center">
-            <a asp-controller="Admin" asp-action="Cancel" class="btn ws-red-bg col mx-3 ws-red-btn">Cancel</a>
-            <button type="submit" class="btn ws-blue-bg col mx-3 ws-blue-btn">@ViewBag.Action Person</button>
+            <a asp-controller="Account" asp-action="Index" class="ms-3 col-12 text-nowrap text-center ws-red-bg col ws-red-btn mb-3">Cancel</a>
+            <button type="submit" class="ms-3 col-12 text-nowrap ws-blue-bg col ws-blue-btn">Change Username</button>
         </div>
     </form>
 </div>

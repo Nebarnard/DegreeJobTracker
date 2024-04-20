@@ -23,6 +23,31 @@ namespace DegreeJobTracker.Models
         public virtual DbSet<UserCredential> UserCredentials { get; set; } = null!;
 
 
+        // Determine if a primary key value exists
+        public bool DoesPrimaryKeyExist<TEntity>(object primaryKeyValue) where TEntity : class {
+            var entityType = typeof(TEntity);
+            var entity = this.Model.FindEntityType(entityType);
+
+            if (entity == null) {
+                throw new InvalidOperationException($"Entity type '{entityType.Name}' not found in the model.");
+            }
+
+            var primaryKey = entity.FindPrimaryKey();
+
+            if (primaryKey == null) {
+                throw new InvalidOperationException($"Entity type '{entityType.Name}' does not have a primary key defined.");
+            }
+
+            var primaryKeyPropertyName = primaryKey.Properties.First().Name;
+
+            // Construct query to check if primary key value exists
+            var query = this.Set<TEntity>().Where(entity => EF.Property<object>(entity, primaryKeyPropertyName).Equals(primaryKeyValue));
+
+            // Execute the query and check if any entity matches the primary key value
+            return query.Any();
+        } // end method
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Degree>(entity =>
