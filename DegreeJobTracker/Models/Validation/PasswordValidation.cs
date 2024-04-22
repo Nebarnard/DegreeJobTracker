@@ -50,71 +50,124 @@ namespace DegreeJobTracker.Models.Validation
             _requireSpecialChar = requireSpecialChar;
         } // end method
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            if (value != null)
-            {
-                string password = value.ToString();
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext) {
+            // Initialize String
+            string password;
 
-                // Check minimum length
-                if (password.Length < _minimumLength)
-                {
-                    return new ValidationResult($"The password must be at least {_minimumLength} characters long.");
-                } // end if
-
-                // Check uppercase requirement
-                if (_requireUppercase && !ContainsUppercase(password))
-                {
-                    return new ValidationResult("The password must contain at least one uppercase letter.");
-                } // edn if
-
-                // Check lowercase requirement
-                if (_requireLowercase && !ContainsLowercase(password))
-                {
-                    return new ValidationResult("The password must contain at least one lowercase letter.");
-                } // end if
-
-                // Check digit requirement
-                if (_requireDigit && !ContainsDigit(password))
-                {
-                    return new ValidationResult("The password must contain at least one digit.");
-                } // end if
-
-                // Check special character requirement
-                if (_requireSpecialChar && !ContainsSpecialChar(password))
-                {
-                    return new ValidationResult("The password must contain at least one special character.");
-                } // end if
-
-                return ValidationResult.Success;
+            // Check if null
+            if (value == null) {
+                password = string.Empty;
+            } else {
+                password = value.ToString();
             } // end if
 
-            return new ValidationResult("The password field is required.");
+            // Create Error Message
+            string errorMessage = GetErrorMessage();
+
+            // Check minimum length
+            if (password.Length < _minimumLength) {
+                return new ValidationResult(errorMessage);
+            } // end if
+
+            // Check uppercase requirement
+            if (_requireUppercase && !ContainsUppercase(password)) {
+                return new ValidationResult(errorMessage);
+            } // edn if
+
+            // Check lowercase requirement
+            if (_requireLowercase && !ContainsLowercase(password)) {
+                return new ValidationResult(errorMessage);
+            } // end if
+
+            // Check digit requirement
+            if (_requireDigit && !ContainsDigit(password)) {
+                return new ValidationResult(errorMessage);
+            } // end if
+
+            // Check special character requirement
+            if (_requireSpecialChar && !ContainsSpecialChar(password)) {
+                return new ValidationResult(errorMessage);
+            } // end if
+
+            return ValidationResult.Success;
         } // end method
 
+        // Creates an Error Message based on parameters
+        private string GetErrorMessage() {
+            // Initialize Error Message
+            string errorMessage = "Password must";
+
+            // Min Length
+            if (_minimumLength > 0) {
+                errorMessage += $"be {_minimumLength} characters long";
+            } // end if
+
+            // Uppercase
+            if (_requireUppercase) {
+                // Check if requirement before
+                if (errorMessage.Length != 7) {
+                    errorMessage += ", ";
+                } // end if
+
+                // Add Message
+                errorMessage += $"contain at least one uppercase letter";
+            } // end if
+
+            // Lowercase
+            if (_requireLowercase) {
+                // Check if requirement before
+                if (errorMessage.Length != 7) {
+                    errorMessage += ", ";
+                } // end if
+
+                // Add Message
+                errorMessage += $"contain at least one lowercase letter";
+            } // end if
+
+            // Digit
+            if (_requireDigit) {
+                // Check if requirement before
+                if (errorMessage.Length != 7) {
+                    errorMessage += ", ";
+                } // end if
+
+                // Add Message
+                errorMessage += $"contain at least one digit";
+            } // end if
+
+            // Special Char
+            if (_requireSpecialChar) {
+                // Check if requirement before
+                if (errorMessage.Length != 7) {
+                    errorMessage += ", and ";
+                } // end if
+
+                // Add Message
+                errorMessage += $"contain at least one special character";
+            } // end if
+
+            // Return with period
+            return errorMessage + '.';
+        } // end if
+
         // Check if a password contains an uppercase letter
-        private bool ContainsUppercase(string value)
-        {
+        private bool ContainsUppercase(string value) {
             return value.Any(char.IsUpper);
         } // end method
 
         // Check if a password contains a lowercase letter
-        private bool ContainsLowercase(string value)
-        {
+        private bool ContainsLowercase(string value) {
             return value.Any(char.IsLower);
         } // end method
 
         // Check if password contains a digit
-        private bool ContainsDigit(string value)
-        {
+        private bool ContainsDigit(string value) {
             return value.Any(char.IsDigit);
         } // end method
 
         // Check if password contains a special character
-        private bool ContainsSpecialChar(string value)
-        {
+        private bool ContainsSpecialChar(string value) {
             return value.Any(ch => !char.IsLetterOrDigit(ch));
         } // end method
-
     } // end class
 } // end namespace

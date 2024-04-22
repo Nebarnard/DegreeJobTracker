@@ -1,5 +1,6 @@
 ﻿using DegreeJobTracker.Models.Context;
 using DegreeJobTracker.Models.ViewModel;
+using DegreeJobTracker.Models.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -96,12 +97,41 @@ namespace DegreeJobTracker.Controllers
         // Change Password
         [HttpGet]
         public IActionResult Password() {
-            return View();
+            // Create Model
+            PasswordViewModel p = new PasswordViewModel();
+
+            return View("Password", p);
         } // end method
 
         [HttpPost]
-        public IActionResult Password(string password) {
-            return RedirectToAction("Index");
+        public IActionResult Password(PasswordViewModel p) {
+            // Get Username
+            string username = HttpContext.Session.GetString("Username");
+
+            // Get Current Password
+            var password = context.UserCredentials
+                .Where(u => u.Username == username)
+                .Select(u => u.Password)
+                .FirstOrDefault();
+
+            // Validation
+            if (ModelState.IsValid) {
+                if (PasswordHasher.HashPassword(p.Password) != password) {
+                    // Create UserCredentials Object
+                    UserCredential uc = new UserCredential();
+                    uc.Username = username;
+                    uc.Password = PasswordHasher.HashPassword(p.Password);
+
+
+                    context.UserCredentials.Update(uc);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                } else {
+                    return RedirectToAction("Index");
+                } // end else
+            } else {
+                return View();
+            } // end else
         } // end method
 
 
