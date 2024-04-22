@@ -11,8 +11,9 @@ It is recommended to change the username and password for the admin view login i
 ### Editing/Deleting the Admin View Login Credentials
 If a user forgets their credentials or you wish to add a user you can fix this by following the steps below:
 1. Decide on what you want the username and password to be. (eg. Username: admin, Password: password).
-2. Run the `Password Hasher` application and enter the password you wish to use.
-3. Run the following sql on the database, replacing ***YourUsernameHere*** and ***YourPasswordHashHere*** with your chosen username and the password hash:
+2. Open the [Password Hasher](https://nebarnard.github.io/DegreeJobTracker/) application and enter the password you wish to use.
+3. Copy the password with the "Copy Hashed Password" button.
+4. Run the following sql on the database, replacing ***YourUsernameHere*** and ***YourPasswordHashHere*** with your chosen username and the password hash:
     ```
     INSERT INTO user_credential 
         (username, password)
@@ -20,7 +21,7 @@ If a user forgets their credentials or you wish to add a user you can fix this b
         ('YourUsernameHere', 'YourPasswordHashHere')
     ;
     ```
-4. (Optional) Delete the previous password by running the following sql, replacing  ***YourOldUsernameHere*** with the credentials you want to replace:
+5. (Optional) Delete the previous password by running the following sql, replacing  ***YourOldUsernameHere*** with the credentials you want to delete. Alternatively you can log into the application wiht these credentials and delete them from within the application:
     ```
     DELETE FROM user_credential
     WHERE username = 'YourOldUsernameHere'
