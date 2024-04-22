@@ -1,0 +1,40 @@
+body {
+    background-color: #001641;
+    color: #ffffff;
+    margin-bottom: 70px; /* Adjust margin to accommodate the footer button */
+  }
+  .container {
+    margin-top: 50px;
+  } 
+  .btn-hash {
+    background-color: #e91540;
+    border-color: #e91540;
+    color: white;
+  }
+  .btn-hash:hover {
+    background-color: #cc1033;
+    border-color: #cc1033;
+  }
+  /* Center and wrap text for hashed password */
+  #hashedPassword {
+    text-align: center;
+    word-wrap: break-word;
+  }
+  /* Adjust column width for medium viewports and up */
+  @media (min-width: 768px) {
+    .col-md-6 {
+      max-width: 500px; /* Adjust this value as needed */
+      margin: 0 auto; /* Center the column */
+    }
+  }
+  /* Style for the footer button */
+  .footer-button {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #001641;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DegreeJobTracker Password Hasher</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel ="stylesheet" href="site.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <h2 class="text-center">DegreeJobTracker Password Hasher</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form id="hashForm">
+            <div class="form-group">
+              <label for="password">Enter a password to get a compatible hash of it:</label>
+              <input type="text" class="form-control" id="password" placeholder="Password" required>
+            </div>
+          </form>
+          <button id="copyButton" class="btn btn-block btn-hash mt-2" style="display:none;">Copy Hashed Password</button>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-4" style="display: none;" id="result">
+        <div class="col-md-6">
+          <h3 class="text-center" id="hashedPasswordLabel">Hashed Password:</h3>
+          <p class="text-center" id="hashedPassword"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Button -->
+    <div class="footer-button">
+      <a href="https://github.com/Nebarnard/DegreeJobTracker" class="btn btn-link text-white">Click here to go to the repository!</a>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="site.js" asp-append-version="true"></script>
+  </body>
+</html>
