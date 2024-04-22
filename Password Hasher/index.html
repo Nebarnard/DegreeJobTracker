@@ -1,123 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DegreeJobTracker Password Hasher</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #001641;
-      color: #ffffff;
-      margin-bottom: 70px; /* Adjust margin to accommodate the footer button */
-    }
-    .container {
-      margin-top: 50px;
-    } 
-    .btn-hash {
-      background-color: #e91540;
-      border-color: #e91540;
-      color: white;
-    }
-    .btn-hash:hover {
-      background-color: #cc1033;
-      border-color: #cc1033;
-    }
-    /* Center and wrap text for hashed password */
-    #hashedPassword {
-      text-align: center;
-      word-wrap: break-word;
-    }
-    /* Adjust column width for medium viewports and up */
-    @media (min-width: 768px) {
-      .col-md-6 {
-        max-width: 500px; /* Adjust this value as needed */
-        margin: 0 auto; /* Center the column */
-      }
-    }
-    /* Style for the footer button */
-    .footer-button {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: #001641;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="text-center">DegreeJobTracker Password Hasher</h1>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <form id="hashForm">
-          <div class="form-group">
-            <label for="password">Enter a password to get a compatible hash of it:</label>
-            <input type="text" class="form-control" id="password" placeholder="Password" required>
-          </div>
-        </form>
-        <button id="copyButton" class="btn btn-block btn-hash mt-2" style="display:none;">Copy Hashed Password</button>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DegreeJobTracker Password Hasher</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel ="stylesheet" href="site.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <h2 class="text-center">DegreeJobTracker Password Hasher</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form id="hashForm">
+            <div class="form-group">
+              <label for="password">Enter a password to get a compatible hash of it:</label>
+              <input type="text" class="form-control" id="password" placeholder="Password" required>
+            </div>
+          </form>
+          <button id="copyButton" class="btn btn-block btn-hash mt-2" style="display:none;">Copy Hashed Password</button>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-4" style="display: none;" id="result">
+        <div class="col-md-6">
+          <h3 class="text-center" id="hashedPasswordLabel">Hashed Password:</h3>
+          <p class="text-center" id="hashedPassword"></p>
+        </div>
       </div>
     </div>
-    <div class="row justify-content-center mt-4" style="display: none;" id="result">
-      <div class="col-md-6">
-        <h3 class="text-center">Hashed Password:</h3>
-        <p class="text-center" id="hashedPassword"></p>
-      </div>
+
+    <!-- Footer Button -->
+    <div class="footer-button">
+      <a href="https://github.com/Nebarnard/DegreeJobTracker" class="btn btn-link text-white">Click here to go to the repository!</a>
     </div>
-  </div>
 
-  <!-- Footer Button -->
-  <div class="footer-button">
-    <a href="https://github.com/Nebarnard/DegreeJobTracker" class="btn btn-link text-white">Click here to go to the repository!</a>
-  </div>
-
-  <!-- Bootstrap JS and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <script>
-    // Function to calculate SHA-256 hash
-    function sha256(plain) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(plain);
-      return window.crypto.subtle.digest('SHA-256', data);
-    }
-
-    // Function to convert array buffer to hex string
-    function toHexString(buffer) {
-      return Array.prototype.map.call(new Uint8Array(buffer), (byte) => {
-        return ('0' + byte.toString(16)).slice(-2);
-      }).join('');
-    }
-
-    // Function to handle input event on the password field
-    document.getElementById('password').addEventListener('input', function(event) {
-      const password = event.target.value;
-      const salt = 'V74L9cCpU0\\&U|`(a><:J;`+';
-      const saltedPassword = password + salt;
-      sha256(saltedPassword)
-        .then(hashBuffer => {
-          const hashHex = toHexString(hashBuffer);
-          document.getElementById('hashedPassword').innerText = hashHex;
-          document.getElementById('result').style.display = 'block';
-          document.getElementById('copyButton').style.display = 'block';
-        })
-        .catch(error => console.error('Error hashing:', error));
-    });
-
-    // Function to copy hashed password to clipboard
-    document.getElementById('copyButton').addEventListener('click', function() {
-      const hashedPassword = document.getElementById('hashedPassword').innerText;
-      navigator.clipboard.writeText(hashedPassword)
-        .then(() => alert('Hashed password copied to clipboard!'))
-        .catch(err => console.error('Error copying to clipboard:', err));
-    });
-  </script>
-</body>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="site.js" asp-append-version="true"></script>
+  </body>
 </html>
