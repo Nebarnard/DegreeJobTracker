@@ -8,6 +8,15 @@
         <h1 class="ws-blue-color">@Context.Session.GetString("Username")</h1>
     </div>
 </div>
+
+@{
+    if ((string)ViewData["Error"] != string.Empty) {
+        <div class="text-center mb-4">
+            <p class="ws-red-color">@ViewData["Error"]</p>
+        </div>
+    }
+}
+
 <div class="align-content-start row">
     <h3><a asp-controller="Account" asp-action="Username" class="ws-blue-color">Change Username</a></h3>
     <p class="mb-5">&emsp;&emsp;Change your Account's username.</p>

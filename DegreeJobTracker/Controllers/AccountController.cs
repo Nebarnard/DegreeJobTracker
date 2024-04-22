@@ -142,8 +142,42 @@ namespace DegreeJobTracker.Controllers
         } // end method
 
         [HttpPost]
-        public IActionResult Delete(string delete) {
-            return RedirectToAction("Index");
+        public IActionResult Delete(UserCredential uc) {
+            // Get Username
+            string username = HttpContext.Session.GetString("Username");
+
+            // Get Current Password
+            var password = context.UserCredentials
+                .Where(u => u.Username == username)
+                .Select(u => u.Password)
+                .FirstOrDefault();
+
+            // Get Count of Users in Database
+            int userCount = context.UserCredentials.Count();
+
+            // Create UserCredentials Object
+            uc.Username = username;
+            uc.Password = password;
+
+            // Validation
+            if (uc != null) {
+                if (userCount > 1) {
+                    context.UserCredentials.Remove(uc);
+                    context.SaveChanges();
+
+                    // Remove Session
+                    HttpContext.Session.Remove("Username");
+                    HttpContext.Session.Remove("LoggedIn");
+
+                    return RedirectToAction("Index", "Home");
+                } else {
+                    ViewData["Error"] = "Cannot delete only user in database.";
+                    return View("Index");
+                } // end else
+            } else {
+                ViewData["Error"] = "There was an error deleting your account please try again later.";
+                return View("Index");
+            } // end else
         } // end method
     } // end class
 } // end namespace
