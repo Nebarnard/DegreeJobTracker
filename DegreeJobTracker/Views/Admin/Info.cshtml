@@ -7,83 +7,86 @@
 <!-- Heading and Edit Person Button -->
 <div class="row mb-5">
     <div class="col text-center">
-        <h1 class="ws-blue-color">@Model.Name</h1>
-        <a asp-action="Person" asp-controller="Admin" class="btn btn-primary">Edit Person</a>
+        <h1 class="ws-blue-color mb-3">@Model.Name</h1>
+        <a asp-action="Person" asp-controller="Admin" class="ws-blue-bg ws-blue-btn">Edit Person</a>
     </div>
 </div>
 
 <!-- Degrees Section -->
-<div class="row">
-    <div class="col-md-5 ms-5">
-        <div class="card">
-            <div class="card-body mx-3">
-                <h2 class="card-title text-center">Degrees</h2>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="text-center">
-                            <th>Degree</th>
-                            <th>Year Awarded</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var degree in Model.Degrees)
-                        {
-                            <tr>
-                                <td class="text-center">@degree.Type @degree.Major</td>
-                                <td class="text-center">@((degree.YearAwarded != null) ? degree.YearAwarded.ToString() : "N/A")</td>
-                                <td class="text-center">
-                                    <a asp-action="Degree" asp-route-id="@degree.DegreeId" class="text-primary"><i class="fas fa-edit"></i></a>
-                                    <a asp-action="DeleteDegree" asp-route-id="@degree.DegreeId" class="text-danger"><i class="fas fa-trash"></i></a>
-                                </td>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- Centering the row -->
+        <div class="col-md-5 mb-4">
+            <!-- Adding margin below the column -->
+            <div class="card">
+                <div class="card-body mx-md-3">
+                    <h2 class="card-title text-center">Degrees</h2>
+                    <table class="table table-bordered table-striped table-responsive card-body">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Degree</th>
+                                <th>Year Awarded</th>
+                                <th>Action</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <a asp-action="Degree" asp-controller="Admin" class="btn btn-secondary">Add Degree</a>
+                        </thead>
+                        <tbody>
+                            @foreach (var degree in Model.Degrees) {
+                                <tr>
+                                    <td class="text-center">@degree.Type @degree.Major</td>
+                                    <td class="text-center">@((degree.YearAwarded != null) ? degree.YearAwarded.ToString() : "N/A")</td>
+                                    <td class="text-center">
+                                        <a asp-action="Degree" asp-route-id="@degree.DegreeId" class="text-primary"><i class="fas fa-edit"></i></a>
+                                        <a asp-action="DeleteDegree" asp-route-id="@degree.DegreeId" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <a asp-action="Degree" asp-controller="Admin" class="ws-blue-bg ws-blue-btn">Add Degree</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-<!-- Jobs Section -->
+        <!-- Jobs Section -->
 
-    <div class="col-md-6 ">
-        <div class="card">
-            <div class="card-body mx-3">
-                <h2 class="card-title text-center">Jobs</h2>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="text-center">
-                            <th>Job Title</th>
-                            <th>Business Name</th>
-                            <th>Salary</th>
-                            
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var job in Model.Jobs)
-                        {
-                            <tr>
-                                <td class="text-center">@job.JobTitle</td>
-                                <td class="text-center">@job.BusinessName</td>
-                                <td class="text-center">@job.Salary.ToString()</td>
-                                
-                                <td class="text-center">@job.Description</td>
-                                <td class="text-center">
-                                    <a asp-action="Job" asp-route-id="@job.JobId" class="text-primary"><i class="fas fa-edit"></i></a>
-                                    <a asp-action="DeleteJob" asp-route-id="@job.JobId" class="text-danger"><i class="fas fa-trash"></i></a>
-                                </td>
+        <div class="col-md-7 mb-4">
+            <!-- Larger column for jobs section -->
+            <div class="card">
+                <div class="card-body mx-md-3">
+                    <h2 class="card-title text-center">Jobs</h2>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Job Title</th>
+                                <th>Business Name</th>
+                                <th>Salary</th>
+
+                                <th>Description</th>
+                                <th>Action</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <a asp-action="Job" asp-controller="Admin" class="btn btn-secondary">Add Job</a>
+                        </thead>
+                        <tbody>
+                            @foreach (var job in Model.Jobs) {
+                                <tr>
+                                    <td class="text-center">@job.JobTitle</td>
+                                    <td class="text-center">@job.BusinessName</td>
+                                    <td class="text-center">@job.Salary.ToString()</td>
+
+                                    <td class="text-center">@job.Description</td>
+                                    <td class="text-center">
+                                        <a asp-action="Job" asp-route-id="@job.JobId" class="text-primary"><i class="fas fa-edit"></i></a>
+                                        <a asp-action="DeleteJob" asp-route-id="@job.JobId" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <a asp-action="Job" asp-controller="Admin" class="ws-blue-bg ws-blue-btn">Add Job</a>
+                    </div>
                 </div>
             </div>
         </div>
