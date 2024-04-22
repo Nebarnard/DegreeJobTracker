@@ -1,4 +1,5 @@
-﻿using DegreeJobTracker.Models;
+﻿using DegreeJobTracker.Models.Context;
+using DegreeJobTracker.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,8 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Runtime.Intrinsics.Arm;
 
-namespace DegreeJobTracker.Controllers {
+namespace DegreeJobTracker.Controllers
+{
     public class AdminController : Controller {
 
         // Allow For Connection String Access for places that dont use EFCore

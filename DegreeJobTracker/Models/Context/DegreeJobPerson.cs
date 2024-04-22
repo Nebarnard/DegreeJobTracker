@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DegreeJobTracker.Models
-{
+namespace DegreeJobTracker.Models.Context {
     public partial class DegreeJobPerson
     {
         public int PersonId { get; set; }

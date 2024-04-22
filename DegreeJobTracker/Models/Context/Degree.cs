@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DegreeJobTracker.Models.Validation;
 
-namespace DegreeJobTracker.Models
+namespace DegreeJobTracker.Models.Context
 {
     public partial class Degree {
         public Degree() {

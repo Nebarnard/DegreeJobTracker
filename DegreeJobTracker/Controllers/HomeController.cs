@@ -1,9 +1,12 @@
-﻿using DegreeJobTracker.Models;
+﻿using DegreeJobTracker.Models.Context;
+using DegreeJobTracker.Models.ViewModel;
+using DegreeJobTracker.Models.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace DegreeJobTracker.Controllers {
+namespace DegreeJobTracker.Controllers
+{
     public class HomeController : Controller {
         private DegreeJobTrackerContext context { get; set; }
 

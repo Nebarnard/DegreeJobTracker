@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DegreeJobTracker.Models
-{
+namespace DegreeJobTracker.Models.Context {
     public partial class Job
     {
        

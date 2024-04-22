@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using DegreeJobTracker.Models;
+using DegreeJobTracker.Models.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

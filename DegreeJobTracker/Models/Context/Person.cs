@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace DegreeJobTracker.Models
-{
+namespace DegreeJobTracker.Models.Context {
     public partial class Person
     {
 

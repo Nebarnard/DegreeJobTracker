@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DegreeJobTracker.Models.Context;
 
-namespace DegreeJobTracker.Models {
+namespace DegreeJobTracker.Models.ViewModel {
     public partial class JobDegreePersonPost : Job {
 
         public JobDegreePersonPost() { }

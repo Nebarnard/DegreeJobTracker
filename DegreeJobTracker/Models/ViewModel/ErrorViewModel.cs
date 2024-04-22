@@ -1,4 +1,4 @@
-namespace DegreeJobTracker.Models {
+namespace DegreeJobTracker.Models.ViewModel {
     public class ErrorViewModel {
         public string? RequestId { get; set; }
 

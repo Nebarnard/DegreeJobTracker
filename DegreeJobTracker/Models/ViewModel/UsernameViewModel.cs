@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DegreeJobTracker.Models {
+namespace DegreeJobTracker.Models.ViewModel {
     public partial class UsernameViewModel {
 
         [Required(ErrorMessage = "Please enter a Username.")]

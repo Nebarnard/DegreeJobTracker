@@ -1,4 +1,4 @@
-﻿namespace DegreeJobTracker.Models {
+﻿namespace DegreeJobTracker.Models.ViewModel {
     public class DegreeJobPersonAdminViewModel {
 
         public int PersonId { get; set; }

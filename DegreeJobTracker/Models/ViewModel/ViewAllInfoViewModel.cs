@@ -1,4 +1,6 @@
-﻿namespace DegreeJobTracker.Models {
+﻿using DegreeJobTracker.Models.Context;
+
+namespace DegreeJobTracker.Models.ViewModel {
     public class ViewAllInfoViewModel {
 
         public ViewAllInfoViewModel(int person_id, string name, List<Job> jobs, List<Degree> degrees) {

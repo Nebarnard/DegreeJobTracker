@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DegreeJobTracker.Models
-{
+namespace DegreeJobTracker.Models.Context {
     public partial class DegreeJobTrackerContext : DbContext
     {
         public DegreeJobTrackerContext()
